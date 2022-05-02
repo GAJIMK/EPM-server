@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.RequestConfirmMapper">
+	
+    <!-- XML 파일 주석 쓰는 방법 -->
+    <!-- id명은 RequestConfirmMapper 클래스의 함수명과 똑같이 해주기 -->
+    <select id="findAll" resultType="RequestConfirm">
+        SELECT	*
+        FROM 	RequestConfirm
+    </select>
+
+    <select id="readRequestConfirm" parameterType="RequestConfirm" resultType="RequestConfirm"> 
+        SELECT  * 
+        FROM    RequestConfirm 
+        WHERE   receiverId=#{receiverId} and requestId=#{requestId} and receiveTime is Null
+    </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
+    
+    <select id="findRequestConfirmByIdNo" parameterType="String" resultType="int"> 
+        SELECT  requestId
+        FROM    RequestConfirm 
+        WHERE   receiverId=#{receiverId} and receiveTime is Null
+    </select> 
+
+    <insert id="create"> 
+        INSERT 
+        INTO RequestConfirm
+                (requestId
+                ,receiverId) 
+        VALUES
+                (#{requestId}
+                ,#{receiverId}) 
+    </insert> <!-- insert, update는 리턴타입 없다. select만 --> 
+    
+    <update id="update" parameterType="RequestConfirm"> 
+        UPDATE RequestConfirm 
+        SET postNo=#{postNo},
+            addr=#{addr},
+            detailAddr=#{detailAddr},
+            name=#{name},
+            phone=#{phone},
+            msg=#{msg},
+            receiveTime=#{receiveTime}
+        WHERE receiverId=#{receiverId} and requestId=#{requestId}
+    </update> 
+    
+    <delete id="deleteByFuncId"> 
+        DELETE
+        FROM RequestConfirm 
+        WHERE FuncId=#{funcId}
+    </delete> 
+
+</mapper>

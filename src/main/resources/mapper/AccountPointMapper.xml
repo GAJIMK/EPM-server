@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.AccountPointMapper">
+
+  <select id="findAll" resultType="AccountPoint">
+    select a.IDNo,a.AccountNm as name, t.ShortNm as tpName, c.CommonName as tpPosition
+    from tAccount as a
+    inner join Team as t on a.TeamNo = t.TeamNo
+    inner join CommonCode as c on c.CommonCode = a.tpPosition and c.ClassCode='Position'
+  </select>
+
+</mapper>

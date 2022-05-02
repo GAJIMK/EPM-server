@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.ManagerInfoMapper">
+
+  <select id="findManager" resultType="ManagerInfo">
+    select f.funcId, f.funcNm, m.managerId, a.AccountNm, t.ShortNm, c.CommonName
+    from Manager as m
+    inner join tAccount as a on a.IDNo = m.managerId
+    inner join FuncCode as f on f.funcId = m.funcId
+    inner join Team as t on a.TeamNo = t.TeamNo
+    inner join CommonCode as c on c.CommonCode = a.tpPosition and c.ClassCode='Position'
+    where m.expireDate is null and m.master=#{master}
+  </select>
+
+  <select id="findManagerByFuncId" resultType="ManagerInfo">
+    select f.funcId, f.funcNm, m.managerId, a.AccountNm, t.ShortNm, c.CommonName
+    from Manager as m
+    inner join tAccount as a on a.IDNo = m.managerId
+    inner join FuncCode as f on f.funcId = m.funcId
+    inner join Team as t on a.TeamNo = t.TeamNo
+    inner join CommonCode as c on c.CommonCode = a.tpPosition and c.ClassCode='Position'
+    where m.expireDate is null and m.master=#{master} and f.funcId=#{funcId} 
+
+  </select>
+
+
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.FuncCodeMapper">
+	
+    <!-- XML 파일 주석 쓰는 방법 -->
+    <!-- id명은 FuncCodeMapper 클래스의 함수명과 똑같이 해주기 -->
+    <select id="findAll" resultType="FuncCode">
+        SELECT	*
+        FROM 	FuncCode
+    </select>
+
+    <select id="read" resultType="FuncCode"> 
+        SELECT  * 
+        FROM    FuncCode 
+        WHERE   FuncId=#{id} 
+    </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
+    
+    <select id="readByFuncId" resultType="FuncCode"> 
+        SELECT  FuncNm
+        FROM    FuncCode 
+        WHERE   FuncId=#{funcId} 
+    </select> 
+
+    <insert id="create"> 
+        <selectKey resultType="short" keyProperty="funcId" keyColumn="funcId" order="BEFORE">
+            SELECT MAX(funcId)+10 FROM FuncCode        
+        </selectKey>
+        INSERT 
+        INTO FuncCode
+                (funcId
+                ,funcNm) 
+        VALUES
+                (#{funcId}
+                ,#{funcNm}) 
+    </insert> <!-- insert, update는 리턴타입 없다. select만 --> 
+    
+    <update id="update"> 
+        UPDATE FuncCode 
+        SET FuncNm=#{funcNm}
+        WHERE FuncId=#{funcId} 
+    </update> 
+    
+    <delete id="deleteByFuncId"> 
+        DELETE
+        FROM FuncCode 
+        WHERE FuncId=#{funcId}
+    </delete> 
+
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.ManagerMapper">
+    <!-- XML 파일 주석 쓰는 방법 -->
+
+    <select id="findAll" resultType="Manager">
+        SELECT	*
+        FROM 	Manager
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM Manager
+        WHERE managerId=#{managerId}
+    </delete>
+
+    <select id="getManagerListWithEmail" resultType="Manager">
+        select
+            Manager.funcId,
+            tAccount.eMail
+        FROM  Manager JOIN tAccount ON tAccount.IDNo = Manager.managerId
+        Where Manager.funcId &lt; 31 AND Manager.master = 'Y'
+    </select>
+
+    <select id="getManagerListByFuncIdWithEmail" resultType="Manager">
+        select
+            Manager.funcId,
+            tAccount.eMail
+        FROM  Manager JOIN tAccount ON tAccount.IDNo = Manager.managerId
+        Where Manager.funcId=#{funcId} AND Manager.master = 'Y'
+    </select>
+
+  <insert id = "create">
+    INSERT
+    INTO Manager
+      (
+        funcId,
+        managerId,
+        master,
+        startDate
+      )
+    VALUES
+    (
+      #{funcId},
+      #{managerId},
+      #{master},
+      #{startDate}
+    )
+  </insert>
+  <select id="read" resultType="Manager">
+    select *
+    from Manager
+    where ManagerId=#{ManagerId}
+  </select>
+
+  <update id = "update" parameterType="Manager">
+    UPDATE Manager
+    SET expireDate=#{expireDate}
+    WHERE managerId=#{managerId} and funcId=#{funcId} and expireDate is Null and master=#{master}
+  </update>
+
+    <update id="updateManager">
+        UPDATE Manager
+        SET (funcId=#{funcId}
+                ,master=#{master}
+                ,expireDate=#{expireDate}
+                ,startDate=#{startDate})
+        WHERE managerId=#{managerId}
+
+    </update>
+
+</mapper>

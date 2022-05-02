@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.AlarmMapper">
+    <!-- XML 파일 주석 쓰는 방법 -->
+
+    <select id="findAll" resultType="Alarm">
+        SELECT	*
+        FROM 	Alarm
+    </select>
+
+    <select id="read" resultType="Alarm">
+        SELECT  *
+        FROM    Alarm
+        WHERE   funcId=#{funcId}
+    </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String -->
+
+    <insert id="create">
+        INSERT
+        INTO Alarm
+        (funcId
+        ,title
+        ,content)
+        VALUES
+        (#{funcId}
+        ,#{title}
+        ,#{content})
+    </insert> <!-- insert, update는 리턴타입 없다. select만 -->
+
+    <update id="update">
+        UPDATE Alarm
+        SET (title=#{title}
+            ,content=#{content})
+        WHERE funcId=#{funcId}
+
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM Alarm
+        WHERE funcId=#{funcId}
+    </delete>
+
+    <select id="findAddAccountAlarm" resultType="Alarm">
+        SELECT	*
+        FROM 	Alarm
+        WHERE   FuncId &lt; 31
+    </select>
+
+    <select id="readByFuncId" resultType="Alarm">
+        SELECT	*
+        FROM 	Alarm
+        WHERE   funcId=#{funcId}
+    </select>
+
+</mapper>
