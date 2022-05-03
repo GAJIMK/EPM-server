@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.ExpenseListMapper">
+	
+    <!-- XML 파일 주석 쓰는 방법 -->
+    <!-- id명은 ExpenseListMapper 클래스의 함수명과 똑같이 해주기 -->
+    <select id="findAll" resultType="ExpenseList">
+        SELECT	*
+        FROM 	ExpenseList
+    </select>
+
+    <select id="read" resultType="ExpenseList"> 
+        SELECT  * 
+        FROM    ExpenseList 
+        WHERE   List=#{id} 
+    </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
+    
+    <select id="readByList" resultType="ExpenseList"> 
+        SELECT  List
+        FROM    ExpenseList 
+        WHERE   List=#{id} 
+    </select> 
+
+    <insert id="create"> 
+        INSERT 
+        INTO ExpenseList
+                (List) 
+        VALUES
+                (#{list}) 
+    </insert> <!-- insert, update는 리턴타입 없다. select만 --> 
+    
+    <update id="update"> 
+        UPDATE ExpenseList 
+        SET List=#{name}
+        WHERE List=#{id} 
+    </update> 
+    
+    <delete id="deleteByList"> 
+        DELETE
+        FROM ExpenseList 
+        WHERE List=#{id}
+    </delete> 
+
+</mapper>
