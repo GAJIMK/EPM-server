@@ -29,15 +29,15 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j  
-@Api(tags = {"5. ExpenseList"})
+@Api(tags = {"5. Expense-list"})
 @RequiredArgsConstructor
 @RestController 
-@RequestMapping("/expenseList") 
+@RequestMapping("/expense-list") 
 public class ExpenseListController {
   private final ResponseService responseService;
   private final ExpenseListService service;
 
-  @GetMapping("/findAll")
+  @GetMapping("/")
     public ResponseEntity<?> findAll() {
 
         MultiResult<ExpenseList> rs = null;
@@ -126,7 +126,7 @@ public class ExpenseListController {
 
     @ApiOperation(value = "ExpenseList 개별 삭제", notes = "ExpenseList 개별 삭제")
     @DeleteMapping("/{list}")  // DELETE HTTP 메서드
-    public ResponseEntity<?> delete(@ApiParam(value = "특수기능 번호", required = true) @PathVariable("list") String id) {
+    public ResponseEntity<?> delete(@ApiParam(value = "경비명", required = true) @PathVariable("list") String id) {
         CommonResult rs = null;
         try {
 
