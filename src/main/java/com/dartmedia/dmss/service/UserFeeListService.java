@@ -33,6 +33,11 @@ public class UserFeeListService implements UserFeeListMapper {
   }
 
   @Override
+  public UserFeeList readById(int id) throws Exception {
+    return mapper.readById(id);
+  }
+
+  @Override
   public void update(UserFeeList t) throws Exception {
     mapper.update(t);
   }
@@ -48,13 +53,12 @@ public class UserFeeListService implements UserFeeListMapper {
   }
 
   @Override
-  public void updateStateById(int id, short state) {
-    mapper.updateStateById(id, state);
+  public void updateStateById(int id) {
+    mapper.updateStateById(id);
   }
 
-  @Override
-  public List<UserFeeList> findById(String accountId, String date) throws Exception {
-    return mapper.findById(accountId, date);
+  public List<UserFeeList> findByAccountId(String accountId, String date) throws Exception {
+    return mapper.findByAccountId(accountId, date);
   }
 
 }

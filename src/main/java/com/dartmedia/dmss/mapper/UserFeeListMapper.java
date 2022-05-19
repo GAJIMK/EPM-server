@@ -10,7 +10,9 @@ import com.dartmedia.dmss.dto.UserFeeList;
 public interface UserFeeListMapper extends IMapper<UserFeeList> {
   public void deleteById(short id) throws Exception;
 
-  public List<UserFeeList> findById(String accountId, String date) throws Exception;
+  public List<UserFeeList> findByAccountId(String accountId, String date) throws Exception;
 
-  public void updateStateById(int id, short state);
+  public UserFeeList readById(int id) throws Exception;
+
+  public void updateStateById(int id);
 }
