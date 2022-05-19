@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.UserFeeListMapper">
+
+  <select id="findById" resultType="UserFeeList">
+    SELECT * 
+    FROM 	UserFeeList
+    WHERE AccountId = #{accountId} and Date like #{date}+ '%'
+  </select>
+
+  <insert id ="create">
+    INSERT
+    INTO UserFeeList 
+      (
+        id,
+        date,
+        content,
+        place,
+        companion,
+        method,
+        accountId,
+        part,
+        state,
+        price
+      )
+    VALUES
+    (
+        #{id},
+        #{date},
+        #{content},
+        #{place},
+        #{companion},
+        #{method},
+        #{accountId},
+        #{part},
+        #{state},
+        #{price}
+      )
+  </insert>
+  
+  <update>
+  UPDATE UserFeeList
+  SET id=#{id}
+      ,date=#{date}
+      ,content=#{content}
+      ,place=#{place}
+      ,companion=#{companion}
+      ,method=#{method}
+      ,accountId=#{accountId}
+      ,part=#{part}
+      ,state=#{state}
+      ,price=#{price}
+  </update>
+
+  <update>
+  UPDATE UserFeeList
+  SET state=#{state}
+  WHERE id=#{id}
+  </update>
+
+  <delete id ="deleteById">
+    DELETE 
+    FROM   UserFeeList
+    WHERE Id=#{id}
+  </delete>
+</mapper>
