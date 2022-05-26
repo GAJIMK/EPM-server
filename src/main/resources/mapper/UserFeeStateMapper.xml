@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.UserFeeStateMapper">
+  <select id="findAllByDate" resultType="UserFeeState">
+    select a.AccountNm, s.accountid, s.date, s.state, s.acceptLv
+    from account as a 
+    inner join userfeestate as s
+    on a.accountId = s.accountid
+    where date like #{date} + '%'
+  </select>
+
+  <select id="findAllByUser" resultType="UserFeeState">
+    SELECT * 
+    FROM UserFeeState 
+    WHERE accountId like #{accountId} 
+  </select>
+
+
+  
+</mapper>
