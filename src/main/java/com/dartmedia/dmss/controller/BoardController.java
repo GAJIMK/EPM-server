@@ -38,7 +38,7 @@ public class BoardController {
   private final ResponseService resService;
   private final BoardService service;
 
-  @ApiOperation(value = "Board 개별 등록", notes = "Board 개별 등록")
+  @ApiOperation(value = "Board 등록", notes = "Board 등록")
   @PutMapping("/") // PUT HTTP 메서드
   public ResponseEntity<?> create(@Valid @RequestBody Board board) {
 
@@ -54,7 +54,7 @@ public class BoardController {
     return ResponseEntity.ok().body(result);
   }
 
-  @ApiOperation(value = "Board 개별 수정", notes = "Board 개별 수정")
+  @ApiOperation(value = "Board 수정", notes = "Board 수정")
   @PostMapping("/") // POST HTTP 메서드
   public ResponseEntity<?> update(@Valid @RequestBody Board board) {
 
@@ -105,6 +105,35 @@ public class BoardController {
         } catch (Exception e) {
             log.error("처리중 예외 : " + e.getMessage());
             result = resService.getSingleFailType(CommonResponse.ERR);
+        }
+
+        return ResponseEntity.ok().body(result);
+    }
+    @GetMapping("/find")
+    public ResponseEntity<?> find() {
+
+        MultiResult<Board> result = null;
+
+        try {
+
+            List<Board> findBoard = service.findAll();
+
+            if (service.findAll() != null) {
+
+                if (findBoard.size() > 0)
+                    result = resService.getMultiResult(findBoard);
+                else
+                    result = resService.getMultiFailType(CommonResponse.NODATA);
+
+            }
+
+            // JSONArray jsonArray = JSONArray.fromObject(findTeam);
+
+            // JSONObject jsonObj = new JSONObject();
+
+        } catch (Exception e) {
+            log.error("처리중 예외 : " + e.getMessage());
+            result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
         }
 
         return ResponseEntity.ok().body(result);
