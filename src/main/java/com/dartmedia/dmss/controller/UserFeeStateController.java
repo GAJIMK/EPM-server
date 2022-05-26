@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Api(tags = { "12. UserFeeState" }) // SWAGGER 설정
 @RequiredArgsConstructor
 @RestController // REST컨트롤러 설정
-@RequestMapping("/userFeeList") // 최상단 API 경로 설정
+@RequestMapping("/userFeeState") // 최상단 API 경로 설정
 public class UserFeeStateController {
   private final ResponseService resService;
   private final UserFeeStateService service;

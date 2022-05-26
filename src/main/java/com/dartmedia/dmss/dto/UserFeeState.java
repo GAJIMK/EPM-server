@@ -14,6 +14,7 @@ import java.sql.Date;
 public class UserFeeState {
   private String accountId;
   private String accountNm;
+  private String CommonName;
   private Date date;
   private short state;
   private short acceptLv;
