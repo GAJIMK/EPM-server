@@ -13,6 +13,7 @@ import com.dartmedia.dmss.service.BoardService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -81,5 +83,30 @@ public class BoardController {
 
     return ResponseEntity.ok().body(result);
   }
+ 
+  @ApiOperation(value = "게시글 삭제", notes = "게시글 삭제")
+    @DeleteMapping("/{id}") // DELETE HTTP 메서드
+    public ResponseEntity<?> delete(@ApiParam(value = "id값", required = true) @PathVariable("id") short id) {
+        CommonResult result = null;
+        try {
 
+            // id가 존재하는지 확인
+            Board board = service.readById(id);
+
+            if (board != null) {
+                // 팀이 존재하는 경우 삭제
+                service.deleteById(id);
+
+                result = resService.getSingleResult(CommonResponse.SUCCESS);
+            } else {
+                result = resService.getSingleFailType(CommonResponse.NODATA);
+            }
+
+        } catch (Exception e) {
+            log.error("처리중 예외 : " + e.getMessage());
+            result = resService.getSingleFailType(CommonResponse.ERR);
+        }
+
+        return ResponseEntity.ok().body(result);
+    }
 }
