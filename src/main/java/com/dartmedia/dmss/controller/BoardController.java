@@ -28,41 +28,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // 로그기능 활성화
-@Api(tags = { "12. Board" }) // SWAGGER 설정
+@Api(tags = { "13. Board" }) // SWAGGER 설정
 @RequiredArgsConstructor
 @RestController // REST컨트롤러 설정
-@RequestMapping("/Board") // 최상단 API 경로 설정
+@RequestMapping("/board") // 최상단 API 경로 설정
 public class BoardController {
   private final ResponseService resService;
   private final BoardService service;
 
-  @ApiOperation(value = "게시글 조회", notes = "게시글조회")
-  @GetMapping("/findByAccountId")
-  public ResponseEntity<?> findByAccountId(String accountId, String wrote_date) {
-    MultiResult<Board> result = null;
-
-    try {
-      List<Board> list = service.findByAccountId(accountId, wrote_date);
-      if (list.size() > 0)
-        result = resService.getMultiResult(list);
-      else
-        result = resService.getMultiFailType(CommonResponse.NODATA);
-    } catch (Exception e) {
-      log.error("예외:" + e.getMessage());
-      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
-    }
-    return ResponseEntity.ok().body(result);
-  }
-
   @ApiOperation(value = "Board 개별 등록", notes = "Board 개별 등록")
   @PutMapping("/") // PUT HTTP 메서드
-  public ResponseEntity<?> create(@Valid @RequestBody Board userFeeList) {
+  public ResponseEntity<?> create(@Valid @RequestBody Board board) {
 
     // PUT, POST, DELETE HTTP 메서드는 데이터 응답이 아닌 결과만 알려주면 되므로 CommonResult로 리턴
     CommonResult result = null;
 
     try {
-      service.create(userFeeList);
+      service.create(board);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -72,17 +54,17 @@ public class BoardController {
 
   @ApiOperation(value = "Board 개별 수정", notes = "Board 개별 수정")
   @PostMapping("/") // POST HTTP 메서드
-  public ResponseEntity<?> update(@Valid @RequestBody Board Board) {
+  public ResponseEntity<?> update(@Valid @RequestBody Board board) {
 
     CommonResult result = null;
 
     try {
 
-      if (Board.getAccountId() != null) {
-        Board readAccount = service.readById(Board.getId());
+      if (board.getId() > 0) {
+        Board readAccount = service.readById((short) board.getId());
 
         if (readAccount != null) {
-          service.update(Board);
+          service.update(board);
 
           result = resService.getSuccessResult();
         } else {
@@ -99,6 +81,5 @@ public class BoardController {
 
     return ResponseEntity.ok().body(result);
   }
-
 
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BoardService implements BoardMapper {
-  @Resource(name = "BoardMapper")
+  @Resource(name = "boardMapper")
   BoardMapper mapper;
 
   @Override
@@ -22,8 +22,7 @@ public class BoardService implements BoardMapper {
 
   @Override
   public List<Board> findAll() throws Exception {
-
-    return null;
+    return mapper.findAll();
   }
 
   @Override
@@ -33,7 +32,7 @@ public class BoardService implements BoardMapper {
   }
 
   @Override
-  public Board readById(int id) throws Exception {
+  public Board readById(short id) throws Exception {
     return mapper.readById(id);
   }
 
@@ -50,15 +49,6 @@ public class BoardService implements BoardMapper {
   @Override
   public void deleteById(short id) throws Exception {
     mapper.deleteById(id);
-  }
-
-  @Override
-  public void updateStateById(int id) {
-    mapper.updateStateById(id);
-  }
-
-  public List<Board> findByAccountId(String accountId, String date) throws Exception {
-    return mapper.findByAccountId(accountId, date);
   }
 
 }

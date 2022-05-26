@@ -13,8 +13,7 @@ import java.sql.Date;
 @NoArgsConstructor
 public class Board {
   private int id;
-  private Date worte_date;
-  private String board_content;
-  private String board_title;
-  private String accountId;
+  private Date date;
+  private String content;
+  private String title;
 }
