@@ -10,10 +10,9 @@ import java.sql.Date;
 @ToString
 @Getter
 @Setter
-@NoArgsConstructor
 public class Board {
   private int id;
-  private Date date;
+  private String date;
   private String content;
   private String title;
 }

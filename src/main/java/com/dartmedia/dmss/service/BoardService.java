@@ -27,7 +27,6 @@ public class BoardService implements BoardMapper {
 
   @Override
   public Board read(String id) throws Exception {
-
     return null;
   }
 
@@ -51,4 +50,11 @@ public class BoardService implements BoardMapper {
     mapper.deleteById(id);
   }
 
+  @Override
+  public List<Board> findById(int id) throws Exception {
+    // TODO Auto-generated method stub
+    return mapper.findById(id);
+  }
+
+ 
 }

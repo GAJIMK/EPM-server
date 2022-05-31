@@ -7,21 +7,11 @@
   <selectKey resultType="int" keyProperty="id" keyColumn="id" order="BEFORE">
             SELECT ISNULL(MAX(id),0)+1 AS id From Board
         </selectKey>
-    INSERT
-    INTO Board 
-      (
-        id,
-        date,
-        content,
-        title
-      )
-    VALUES
-    (
-        #{id},
-        #{date},
-        #{content},
-        #{title}
-      )
+   insert into board values(
+     #{id},
+     #{title},
+     #{content},
+     CONVERT(CHAR(23), getdate(), 20))
   </insert>
   
   <update id="update">
@@ -49,4 +39,11 @@
     FROM   Board
     WHERE Id=#{id}
   </delete>
+
+ <select id="findById" resultType="Board">
+    SELECT * 
+    FROM 	Board
+    WHERE Id = #{Id}
+  </select>
+
 </mapper>

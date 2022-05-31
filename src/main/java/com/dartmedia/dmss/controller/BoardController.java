@@ -11,6 +11,7 @@ import com.dartmedia.dmss.core.ResponseService.CommonResponse;
 import com.dartmedia.dmss.dto.Board;
 import com.dartmedia.dmss.service.BoardService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,13 +20,13 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,7 +41,7 @@ public class BoardController {
 
   @ApiOperation(value = "Board 등록", notes = "Board 등록")
   @PutMapping("/") // PUT HTTP 메서드
-  public ResponseEntity<?> create(@Valid @RequestBody Board board) {
+  public ResponseEntity<Board> create(@Valid @RequestBody Board board) {
 
     // PUT, POST, DELETE HTTP 메서드는 데이터 응답이 아닌 결과만 알려주면 되므로 CommonResult로 리턴
     CommonResult result = null;
@@ -51,7 +52,7 @@ public class BoardController {
       e.printStackTrace();
     }
     result = resService.getSuccessResult();
-    return ResponseEntity.ok().body(result);
+    return new ResponseEntity<>(board, HttpStatus.OK);
   }
 
   @ApiOperation(value = "Board 수정", notes = "Board 수정")
@@ -109,8 +110,10 @@ public class BoardController {
 
         return ResponseEntity.ok().body(result);
     }
-    @GetMapping("/find")
-    public ResponseEntity<?> find() {
+
+    @ApiOperation(value = "게시글 전체 조회", notes = "게시글 전체 조회")
+    @GetMapping("/findAll")
+    public ResponseEntity<?> findAll() {
 
         MultiResult<Board> result = null;
 
@@ -138,4 +141,23 @@ public class BoardController {
 
         return ResponseEntity.ok().body(result);
     }
+
+    @ApiOperation(value = "게시글 개별 조회", notes = "게시글 개별 조회 ")
+  @GetMapping("/findById")
+  public ResponseEntity<?> findById(int id) {
+    MultiResult<Board> result = null;
+
+    try {
+      List<Board> list = service.findById(id);
+      if (list.size() > 0)
+        result = resService.getMultiResult(list);
+      else
+        result = resService.getMultiFailType(CommonResponse.NODATA);
+    } catch (Exception e) {
+      log.error("예외:" + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+    return ResponseEntity.ok().body(result);
+  }
+   
 }
