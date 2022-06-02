@@ -12,22 +12,27 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ExpenseListService implements ExpenseListMapper {
 
-  @Resource(name="expenseListMapper")
+  @Resource(name = "expenseListMapper")
   ExpenseListMapper mapper;
 
   @Override
   public void create(ExpenseList t) throws Exception {
-    mapper.create(t);    
+    mapper.create(t);
   }
 
   @Override
-  public List<ExpenseList> findAll() throws Exception {      
+  public List<ExpenseList> findAll() throws Exception {
     return mapper.findAll();
   }
 
   @Override
-  public ExpenseList read(String id) throws Exception {
+  public ExpenseList read(Short id) throws Exception {
     return mapper.read(id);
+  }
+
+  @Override
+  public ExpenseList readById(Short id) throws Exception {
+    return mapper.readById(id);
   }
 
   @Override
@@ -37,7 +42,7 @@ public class ExpenseListService implements ExpenseListMapper {
 
   @Override
   public void delete(String id) throws Exception {
-    
+
   }
 
 }
