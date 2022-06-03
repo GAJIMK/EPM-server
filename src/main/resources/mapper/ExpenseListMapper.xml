@@ -17,29 +17,29 @@
     </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
     
     <select id="readById" resultType="ExpenseList"> 
-        SELECT  summCodeName
+        SELECT  *
         FROM    feeSummCode 
-        WHERE   classCode='feePart' and summCode=#{id} 
+        WHERE   classCode='feePart' and summCode=#{summCode} 
     </select> 
 
     <insert id="create"> 
-      <selectKey resultType="int" keyProperty="id" keyColumn="id" order="BEFORE">
-            SELECT ISNULL(MAX(summCode),0)+10 AS id From feeSummCode WHERE classCode='feePart'
+      <selectKey resultType="short" keyProperty="summCode" keyColumn="summCode" order="BEFORE">
+            SELECT ISNULL(MAX(summCode),0)+10 AS summCode From feeSummCode WHERE classCode='feePart'
     </selectKey>
         INSERT 
         INTO feeSummCode
         VALUES
                 (
                     'feePart',
-                    #{id},
-                    #{codeName}
+                    #{summCode},
+                    #{summCodeName}
                 ) 
     </insert> <!-- insert, update는 리턴타입 없다. select만 --> 
     
     <update id="update"> 
         UPDATE feeSummCode 
-        SET summCodeName=#{name}
-        WHERE classCode='feePart' and summCode=#{id} 
+        SET summCodeName=#{summCodeName}
+        WHERE classCode='feePart' and summCode=#{summCode} 
     </update> 
     
     <delete id="deleteByList"> 

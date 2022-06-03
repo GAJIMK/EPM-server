@@ -6,7 +6,7 @@ import com.dartmedia.dmss.dto.ExpenseList;
 
 @MapperInterface
 public interface ExpenseListMapper extends IMapper<ExpenseList> {
-  public ExpenseList readById(Short id) throws Exception;
+  public ExpenseList readById(Short summCode) throws Exception;
 
   public ExpenseList read(Short id) throws Exception;
 }

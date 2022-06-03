@@ -6,10 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class ExpenseList {
-
   private String classCode;
-  private Short summCode;
+  private short summCode;
   private String summCodeName;
 }

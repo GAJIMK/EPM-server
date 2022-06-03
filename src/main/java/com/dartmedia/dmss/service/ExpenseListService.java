@@ -31,8 +31,8 @@ public class ExpenseListService implements ExpenseListMapper {
   }
 
   @Override
-  public ExpenseList readById(Short id) throws Exception {
-    return mapper.readById(id);
+  public ExpenseList readById(Short summCode) throws Exception {
+    return mapper.readById(summCode);
   }
 
   @Override
@@ -43,6 +43,12 @@ public class ExpenseListService implements ExpenseListMapper {
   @Override
   public void delete(String id) throws Exception {
 
+  }
+
+  @Override
+  public ExpenseList read(String id) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }

@@ -19,7 +19,7 @@ public class UserFeeList {
   private String companion;
   private String method;
   private String accountId;
-  private Short part;
-  private Short state;
+  private short part;
+  private short state;
   private int price;
 }
