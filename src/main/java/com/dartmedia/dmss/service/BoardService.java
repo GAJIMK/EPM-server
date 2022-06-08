@@ -56,5 +56,11 @@ public class BoardService implements BoardMapper {
     return mapper.findById(id);
   }
 
+  @Override
+  public List<Board> findBypage(int page) throws Exception {
+    // TODO Auto-generated method stub
+    return mapper.findBypage(page);
+  }
+
  
 }

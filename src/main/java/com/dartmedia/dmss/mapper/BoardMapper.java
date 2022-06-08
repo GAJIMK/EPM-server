@@ -14,4 +14,6 @@ public interface BoardMapper extends IMapper<Board> {
 
   public List<Board> findById(int id) throws Exception;
 
+  public List<Board> findBypage(int page) throws Exception;
+
 }

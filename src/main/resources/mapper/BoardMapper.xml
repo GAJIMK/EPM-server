@@ -24,6 +24,13 @@
   where id=#{id}
   </update>
 
+  <select id="findBypage" resultType="Board">
+    SELECT * FROM BOARD
+    ORDER BY id ASC
+    OFFSET #{page} ROWS
+    FETCH NEXT 3 ROWS ONLY;
+  </select>
+
   <select id="findAll" resultType="Board">
     SELECT * FROM BOARD;
   </select>
