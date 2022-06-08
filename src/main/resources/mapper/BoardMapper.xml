@@ -27,7 +27,7 @@
   <select id="findBypage" resultType="Board">
     SELECT * FROM BOARD
     ORDER BY id ASC
-    OFFSET #{page} ROWS
+    OFFSET (#{page}-1)*3 ROWS
     FETCH NEXT 3 ROWS ONLY;
   </select>
 
