@@ -15,4 +15,5 @@ public class Board {
   private String date;
   private String content;
   private String title;
+  private int page;
 }

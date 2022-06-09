@@ -142,7 +142,25 @@ public class BoardController {
         return ResponseEntity.ok().body(result);
     }
 
-    @ApiOperation(value = "게시글 개별 조회", notes = "게시글 개별 조회 ")
+    @ApiOperation(value = "페이지별 조회", notes = "페이지별 조회")
+    @GetMapping("/findBypage")
+    public ResponseEntity<?> findBypage(int page) {
+    MultiResult<Board> result = null;
+
+    try {
+      List<Board> list = service.findBypage(page);
+      if (list.size() > 0)
+        result = resService.getMultiResult(list);
+      else
+        result = resService.getMultiFailType(CommonResponse.NODATA);
+    } catch (Exception e) {
+      log.error("예외:" + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+    return ResponseEntity.ok().body(result);
+  }
+
+  @ApiOperation(value = "게시글 개별 조회", notes = "게시글 개별 조회 ")
   @GetMapping("/findById")
   public ResponseEntity<?> findById(int id) {
     MultiResult<Board> result = null;

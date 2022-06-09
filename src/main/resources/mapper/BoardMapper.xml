@@ -24,6 +24,13 @@
   where id=#{id}
   </update>
 
+  <select id="findBypage" resultType="Board">
+    SELECT * FROM BOARD
+    ORDER BY id ASC
+    OFFSET #{page}*10 ROWS
+    FETCH NEXT 10 ROWS ONLY;
+  </select>
+
   <select id="findAll" resultType="Board">
     SELECT * FROM BOARD;
   </select>
