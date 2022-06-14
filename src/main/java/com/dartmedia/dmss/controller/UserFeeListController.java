@@ -62,7 +62,16 @@ public class UserFeeListController {
     CommonResult result = null;
 
     try {
-      service.create(userFeeList);
+      if (userFeeList.getId() != 0) {
+        UserFeeList readList = service.readById(userFeeList.getId());
+        if (readList != null) {
+          result = resService.getSingleFailType(CommonResponse.EXIST); // 기존에 등록된 정보가 있음으로 응답
+        } else {
+          service.create(userFeeList);
+
+          result = resService.getSuccessResult();
+        }
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -78,10 +87,10 @@ public class UserFeeListController {
 
     try {
 
-      if (userFeeList.getAccountId() != null) {
-        UserFeeList readAccount = service.readById(userFeeList.getId());
+      if (userFeeList.getId() != 0) {
+        UserFeeList readList = service.readById(userFeeList.getId());
 
-        if (readAccount != null) {
+        if (readList != null) {
           service.update(userFeeList);
 
           result = resService.getSuccessResult();

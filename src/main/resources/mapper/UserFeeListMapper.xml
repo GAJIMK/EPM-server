@@ -6,6 +6,7 @@
     SELECT * 
     FROM 	UserFeeList
     WHERE AccountId = #{accountId} and Date like #{date}+ '%'
+    ORDER BY DATE
   </select>
 
   <insert id ="create">
@@ -36,7 +37,7 @@
         #{method},
         #{accountId},
         #{part},
-        90,
+        50,
         #{price}
       )
   </insert>
