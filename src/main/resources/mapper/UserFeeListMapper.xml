@@ -13,6 +13,7 @@
     SELECT * 
     FROM UserFeeList
     WHERE AccountId = #{accountId} and Date like #{date}+'%' and Part=#{part}
+    ORDER BY DATE
   </select>
 
   <select id="findAll" resultType="UserFeeList">
