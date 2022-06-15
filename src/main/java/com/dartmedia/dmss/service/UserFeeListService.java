@@ -21,12 +21,6 @@ public class UserFeeListService implements UserFeeListMapper {
   }
 
   @Override
-  public List<UserFeeList> findAll() throws Exception {
-
-    return null;
-  }
-
-  @Override
   public UserFeeList read(String id) throws Exception {
 
     return null;
@@ -59,6 +53,19 @@ public class UserFeeListService implements UserFeeListMapper {
 
   public List<UserFeeList> findByAccountId(String accountId, String date) throws Exception {
     return mapper.findByAccountId(accountId, date);
+  }
+
+
+  @Override
+  public List<UserFeeList> findAll(String accountId) throws Exception {
+    // TODO Auto-generated method stub
+    return mapper.findAll(accountId);
+  }
+
+  @Override
+  public List<UserFeeList> findAll() throws Exception {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }

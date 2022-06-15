@@ -9,6 +9,12 @@
     ORDER BY DATE
   </select>
 
+  <select id="findAll" resultType="UserFeeList">
+    SELECT * 
+    FROM 	UserFeeList
+    WHERE AccountId = #{accountId}
+  </select>
+
   <insert id ="create">
   <selectKey resultType="int" keyProperty="id" keyColumn="id" order="BEFORE">
             SELECT ISNULL(MAX(id),0)+1 AS id From UserFeeList
