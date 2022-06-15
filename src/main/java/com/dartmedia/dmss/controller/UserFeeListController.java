@@ -57,6 +57,24 @@ public class UserFeeListController {
     return ResponseEntity.ok().body(result);
   }
 
+  @ApiOperation(value = "사용자 달별, 파트별 경비 조회", notes = "사용자 달별,파트별 경비 조회")
+  @GetMapping("/findByPartId")
+  public ResponseEntity<?> findByPartId(String accountId, String date, short part) {
+    MultiResult<UserFeeList> result = null;
+
+    try {
+      List<UserFeeList> list = service.findByPartId(accountId, date, part);
+      if (list.size() > 0)
+        result = resService.getMultiResult(list);
+      else
+        result = resService.getMultiFailType(CommonResponse.NODATA);
+    } catch (Exception e) {
+      log.error("예외:" + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+    return ResponseEntity.ok().body(result);
+  }
+
   @ApiOperation(value = "사용자 달별 경비 조회", notes = "사용자 달별 경비 조회")
   @GetMapping("/findAll")
   public ResponseEntity<?> findAll(String accountId) {

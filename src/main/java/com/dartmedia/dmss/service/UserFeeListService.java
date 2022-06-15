@@ -55,7 +55,6 @@ public class UserFeeListService implements UserFeeListMapper {
     return mapper.findByAccountId(accountId, date);
   }
 
-
   @Override
   public List<UserFeeList> findAll(String accountId) throws Exception {
     // TODO Auto-generated method stub
@@ -66,6 +65,11 @@ public class UserFeeListService implements UserFeeListMapper {
   public List<UserFeeList> findAll() throws Exception {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  @Override
+  public List<UserFeeList> findByPartId(String accountId, String date, short part) throws Exception {
+    return mapper.findByPartId(accountId, date, part);
   }
 
 }

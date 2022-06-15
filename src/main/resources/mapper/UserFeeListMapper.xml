@@ -9,6 +9,12 @@
     ORDER BY DATE
   </select>
 
+  <select id="findByPartId" resultType="UserFeeList">
+    SELECT * 
+    FROM UserFeeList
+    WHERE AccountId = #{accountId} and Date like #{date}+'%' and Part=#{part}
+  </select>
+
   <select id="findAll" resultType="UserFeeList">
     SELECT * 
     FROM 	UserFeeList
