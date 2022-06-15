@@ -11,8 +11,10 @@ import com.dartmedia.dmss.core.ResponseService.CommonResponse;
 import com.dartmedia.dmss.dto.UserFeeList;
 import com.dartmedia.dmss.service.UserFeeListService;
 
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -62,20 +65,24 @@ public class UserFeeListController {
     CommonResult result = null;
 
     try {
-      if (userFeeList.getId() != 0) {
-        UserFeeList readList = service.readById(userFeeList.getId());
-        if (readList != null) {
-          result = resService.getSingleFailType(CommonResponse.EXIST); // 기존에 등록된 정보가 있음으로 응답
-        } else {
-          service.create(userFeeList);
+      if (userFeeList.getId() == 0) {
+        UserFeeList list = service.readById(userFeeList.getId());
 
-          result = resService.getSuccessResult();
+        if (list != null) {
+
+          result = resService.getSingleFailType(CommonResponse.EXIST);
+        } else {
+
+          service.create(userFeeList);
+          result = resService.getSingleResult(userFeeList);
         }
+
       }
+
     } catch (Exception e) {
       e.printStackTrace();
+      result = resService.getSuccessResult();
     }
-    result = resService.getSuccessResult();
     return ResponseEntity.ok().body(result);
   }
 
@@ -101,6 +108,28 @@ public class UserFeeListController {
         result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
       }
 
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getSingleFailType(CommonResponse.ERR);
+    }
+
+    return ResponseEntity.ok().body(result);
+  }
+
+  @ApiOperation(value = "UserFeeList id값 통한 개별 삭제 ")
+  @DeleteMapping("/{id}")
+  public ResponseEntity<?> deleteById(@ApiParam(value = "리스트 ID", required = true) @PathVariable("id") short id) {
+    CommonResult result = null;
+    try {
+      UserFeeList list = service.readById(id);
+
+      if (list != null) {
+        service.deleteById(id);
+        result = resService.getSingleResult(CommonResponse.SUCCESS);
+      } else {
+        result = resService.getSingleFailType(CommonResponse.NODATA);
+
+      }
     } catch (Exception e) {
       log.error("처리중 예외 : " + e.getMessage());
       result = resService.getSingleFailType(CommonResponse.ERR);
