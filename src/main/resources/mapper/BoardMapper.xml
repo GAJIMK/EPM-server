@@ -26,13 +26,14 @@
 
   <select id="findBypage" resultType="Board">
     SELECT * FROM BOARD
-    ORDER BY id ASC
+    ORDER BY id DESC
     OFFSET #{page}*10 ROWS
     FETCH NEXT 10 ROWS ONLY;
   </select>
 
   <select id="findAll" resultType="Board">
-    SELECT * FROM BOARD;
+    SELECT * FROM BOARD
+    ORDER BY id DESC;
   </select>
 
    <select id="readById" resultType="Board"> 
