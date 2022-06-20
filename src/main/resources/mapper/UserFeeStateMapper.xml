@@ -13,9 +13,11 @@ where date like  #{date} + '%'
   </select>
 
   <select id="findAllByUser" resultType="UserFeeState">
-    SELECT * 
-    FROM UserFeeState 
-    WHERE accountId like #{accountId} 
+    select a.AccountNm, s.accountid, s.date, s.state
+    from account as a 
+    inner join userfeestate as s
+	  on a.accountId = s.accountId
+    where a.accountId = #{accountId}
   </select>
 
 
