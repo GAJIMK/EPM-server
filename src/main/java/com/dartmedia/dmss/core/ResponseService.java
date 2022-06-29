@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.dartmedia.dmss.common.CommonResult;
 import com.dartmedia.dmss.common.MultiResult;
 import com.dartmedia.dmss.common.SingleResult;
-import com.dartmedia.dmss.dto.Account;
 
 /**
  * 응답 코드 및 응답객체

@@ -2,6 +2,9 @@ package com.dartmedia.dmss.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import com.dartmedia.dmss.common.CommonResult;
 import com.dartmedia.dmss.common.MultiResult;
 import com.dartmedia.dmss.core.ResponseService;
 import com.dartmedia.dmss.core.ResponseService.CommonResponse;
@@ -10,6 +13,8 @@ import com.dartmedia.dmss.service.UserFeeStateService;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +31,41 @@ import lombok.extern.slf4j.Slf4j;
 public class UserFeeStateController {
   private final ResponseService resService;
   private final UserFeeStateService service;
+
+  @ApiOperation(value = "Account 개별 등록", notes = "Account 개별 등록")
+  @PutMapping("/") // PUT HTTP 메서드
+  public ResponseEntity<?> create(@Valid @RequestBody UserFeeState userFeeState) {
+
+    // PUT, POST, DELETE HTTP 메서드는 데이터 응답이 아닌 결과만 알려주면 되므로 CommonResult로 리턴
+    CommonResult result = null;
+
+    try {
+
+      // 계정이 비어있는지 확인
+      if (userFeeState.getAccountId() != null && userFeeState.getDate() != null) {
+        // 추가하는 계정이 존재하는지 확인하기 위해 조회
+        UserFeeState readState = service.readByDate(userFeeState.getAccountId(), userFeeState.getDate());
+
+        if (readState != null) {
+          // 계정이 존재하는 경우
+          result = resService.getSingleFailType(CommonResponse.EXIST); // 기존에 등록된 정보가 있음으로 응답
+        } else {
+          service.create(userFeeState);
+
+          result = resService.getSuccessResult();
+        }
+      } else {
+        // 계정이 비어있는경우
+        result = resService.getSingleFailType(CommonResponse.EMPTY_ID); // 빈계정 알림
+      }
+
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getSingleFailType(CommonResponse.ERR);
+    }
+
+    return ResponseEntity.ok().body(result);
+  }
 
   @ApiOperation(value = "사용자별 경비 승인상태 조회", notes = "사용자별 경비 승인상태 조회")
   @GetMapping("/findAllByUser")
@@ -45,7 +85,7 @@ public class UserFeeStateController {
     return ResponseEntity.ok().body(result);
   }
 
-  @ApiOperation(value = "달별 경비 승인상태 조회", notes = "달별 경비 승인상태 조회")
+  @ApiOperation(value = "달별 경비 승인상태 조회", notes = "yyyy-mm")
   @GetMapping("/findAllByDate")
   public ResponseEntity<?> findAllByDate(String date) {
     MultiResult<UserFeeState> result = null;

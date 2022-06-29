@@ -1,5 +1,6 @@
 package com.dartmedia.dmss.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import com.dartmedia.dmss.core.IMapper;
@@ -11,4 +12,6 @@ public interface UserFeeStateMapper extends IMapper<UserFeeState> {
   public List<UserFeeState> findAllByDate(String date) throws Exception;
 
   public List<UserFeeState> findAllByUser(String accountId) throws Exception;
+
+  public UserFeeState readByDate(String accountId, Date date) throws Exception;
 }

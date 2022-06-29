@@ -1,5 +1,6 @@
 package com.dartmedia.dmss.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,7 +17,7 @@ public class UserFeeStateService implements UserFeeStateMapper {
 
   @Override
   public void create(UserFeeState t) throws Exception {
-    // TODO Auto-generated method stub
+    mapper.create(t);
 
   }
 
@@ -27,9 +28,9 @@ public class UserFeeStateService implements UserFeeStateMapper {
   }
 
   @Override
-  public UserFeeState read(String id) throws Exception {
+  public UserFeeState readByDate(String accountId, Date date) throws Exception {
     // TODO Auto-generated method stub
-    return null;
+    return mapper.readByDate(accountId, date);
   }
 
   @Override
@@ -54,6 +55,12 @@ public class UserFeeStateService implements UserFeeStateMapper {
   public List<UserFeeState> findAllByUser(String accountId) throws Exception {
     // TODO Auto-generated method stub
     return mapper.findAllByUser(accountId);
+  }
+
+  @Override
+  public UserFeeState read(String id) throws Exception {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }
