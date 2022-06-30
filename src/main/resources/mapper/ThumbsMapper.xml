@@ -12,6 +12,13 @@
                 (#{AccountId}
                 ,#{id}) 
     </insert> <!-- insert, update는 리턴타입 없다. select만 --> 
+
+ <select id="countById" resultType="Thumbs">
+  SELECT id, COUNT(id) AS cnt 
+  FROM Thumbs
+  WHERE id=#{id} 
+  GROUP BY id;
+</select>
   
   <update id="update">
   UPDATE Board
@@ -22,13 +29,6 @@
      
   where id=#{id}
   </update>
-
-  <select id="findBypage" resultType="Board">
-    SELECT * FROM BOARD
-    ORDER BY id DESC
-    OFFSET #{page}*10 ROWS
-    FETCH NEXT 10 ROWS ONLY;
-  </select>
 
   <select id="findAll" resultType="Board">
     SELECT * FROM BOARD
@@ -47,10 +47,6 @@
     WHERE Id=#{id}
   </delete>
 
- <select id="findById" resultType="Board">
-    SELECT * 
-    FROM 	Board
-    WHERE Id = #{Id}
-  </select>
+
 
 </mapper>

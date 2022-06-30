@@ -55,6 +55,26 @@ public class ThumbsController {
     return new ResponseEntity<>(thumbs, HttpStatus.OK);
   }
 
+  @ApiOperation(value = "게시글 별 count 수 ", notes = "게시글 별 count 수 ")
+  @GetMapping("/countById")
+  public ResponseEntity<?> findById(int id) {
+    MultiResult<Thumbs> result = null;
+
+    try {
+      List<Thumbs> list = service.countById(id);
+      if (list.size() > 0)
+        result = resService.getMultiResult(list);
+      else
+        result = resService.getMultiFailType(CommonResponse.NODATA);
+    } catch (Exception e) {
+      log.error("예외:" + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+    return ResponseEntity.ok().body(result);
+  }
+   
+
+
   @ApiOperation(value = "Thumbs 수정", notes = "Thumbs 수정")
   @PostMapping("/") // POST HTTP 메서드
   public ResponseEntity<?> update(@Valid @RequestBody Thumbs thumbs) {
