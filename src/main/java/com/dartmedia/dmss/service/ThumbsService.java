@@ -21,8 +21,8 @@ public class ThumbsService implements ThumbsMapper {
   }
 
   @Override
-  public List<Thumbs> findAll() throws Exception {
-    return mapper.findAll();
+  public List<Thumbs> selectTop5() throws Exception {
+    return mapper.selectTop5();
   }
 
   @Override

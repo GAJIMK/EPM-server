@@ -14,4 +14,6 @@ public interface ThumbsMapper extends IMapper<Thumbs> {
 
   public List<Thumbs> countById(int id) throws Exception;
 
+  public List<Thumbs> selectTop5() throws Exception;
+
 }

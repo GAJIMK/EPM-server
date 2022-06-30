@@ -107,17 +107,17 @@ public class ThumbsController {
     return ResponseEntity.ok().body(result);
   }
 
-  @ApiOperation(value = "좋아요 전체 조회", notes = "좋아요 전체 조회")
-  @GetMapping("/findAll")
-  public ResponseEntity<?> findAll() {
+  @ApiOperation(value = "좋아요 탑5조회", notes = "좋아요 탑5조회")
+  @GetMapping("/selectTop5")
+  public ResponseEntity<?> selectTop5() {
 
     MultiResult<Thumbs> result = null;
 
     try {
 
-      List<Thumbs> findThumbs = service.findAll();
+      List<Thumbs> findThumbs = service.selectTop5();
 
-      if (service.findAll() != null) {
+      if (service.selectTop5() != null) {
 
         if (findThumbs.size() > 0)
           result = resService.getMultiResult(findThumbs);
