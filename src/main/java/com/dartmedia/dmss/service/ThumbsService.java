@@ -51,9 +51,9 @@ public class ThumbsService implements ThumbsMapper {
   }
 
   @Override
-  public List<Thumbs> findById(int id) throws Exception {
+  public List<Thumbs> countById(int id) throws Exception {
     // TODO Auto-generated method stub
-    return mapper.findById(id);
+    return mapper.countById(id);
   }
 
 }

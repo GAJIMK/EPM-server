@@ -12,6 +12,6 @@ public interface ThumbsMapper extends IMapper<Thumbs> {
 
   public Thumbs readById(short id) throws Exception;
 
-  public List<Thumbs> findById(int id) throws Exception;
+  public List<Thumbs> countById(int id) throws Exception;
 
 }
