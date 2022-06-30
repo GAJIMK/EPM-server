@@ -30,9 +30,11 @@
   where id=#{id}
   </update>
 
-  <select id="findAll" resultType="Board">
-    SELECT * FROM BOARD
-    ORDER BY id DESC;
+  <select id="selectTop5" resultType="Thumbs">
+    SELECT TOP 5 id, COUNT(id) AS cnt 
+    FROM Thumbs 
+    GROUP BY id 
+    ORDER BY cnt DESC;
   </select>
 
    <select id="readById" resultType="Board"> 
