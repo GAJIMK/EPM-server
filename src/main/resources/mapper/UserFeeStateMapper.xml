@@ -22,6 +22,7 @@
         SELECT  * 
         FROM    UserFeeState 
         WHERE   AccountId=#{accountId} and Date=#{date} 
+        ORDER BY date
   </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
   
   <select id="findAllByDate" resultType="UserFeeState">
