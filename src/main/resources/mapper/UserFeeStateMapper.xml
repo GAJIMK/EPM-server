@@ -33,6 +33,7 @@
 	  inner join CommonCode as c
     on c.ClassCode = 'Position' and c.CommonCode = a.tpPosition
     where date like  #{date} + '%'
+    order by s.date desc
   </select>
 
   <select id="findAllByUser" resultType="UserFeeState">
@@ -41,5 +42,6 @@
     inner join userfeestate as s
 	  on a.accountId = s.accountId
     where a.accountId = #{accountId}
+    order by s.date desc
   </select>  
 </mapper>
