@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.ThumbsMapper">
+
+
+  <insert id="create">   
+        INSERT 
+        INTO Thumbs
+                (AccountId
+                ,id) 
+        VALUES
+                (#{AccountId}
+                ,#{id}) 
+    </insert> <!-- insert, update는 리턴타입 없다. select만 --> 
+  
+  <update id="update">
+  UPDATE Board
+  SET
+      date=#{date}
+      ,content=#{content}
+      ,title=#{title}
+     
+  where id=#{id}
+  </update>
+
+  <select id="findBypage" resultType="Board">
+    SELECT * FROM BOARD
+    ORDER BY id DESC
+    OFFSET #{page}*10 ROWS
+    FETCH NEXT 10 ROWS ONLY;
+  </select>
+
+  <select id="findAll" resultType="Board">
+    SELECT * FROM BOARD
+    ORDER BY id DESC;
+  </select>
+
+   <select id="readById" resultType="Board"> 
+        SELECT  * 
+        FROM    Board 
+        WHERE   id=#{id} 
+    </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
+
+  <delete id ="deleteById">
+    DELETE 
+    FROM   Board
+    WHERE Id=#{id}
+  </delete>
+
+ <select id="findById" resultType="Board">
+    SELECT * 
+    FROM 	Board
+    WHERE Id = #{Id}
+  </select>
+
+</mapper>
