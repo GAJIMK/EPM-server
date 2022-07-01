@@ -38,7 +38,8 @@
       FROM Thumbs 
       GROUP BY id 
       ORDER BY cnt DESC) as t
-    on t.id = b.id;
+    on t.id = b.id
+    ORDER BY b.id DESC;
   </select>
 
    <select id="readById" resultType="Board"> 
