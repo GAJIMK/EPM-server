@@ -31,10 +31,14 @@
   </update>
 
   <select id="selectTop5" resultType="Thumbs">
-    SELECT TOP 5 id, COUNT(id) AS cnt 
-    FROM Thumbs 
-    GROUP BY id 
-    ORDER BY cnt DESC;
+    select b.title, b.id
+    from board as b 
+    inner join 
+      (SELECT TOP 3 id, COUNT(id) AS cnt	
+      FROM Thumbs 
+      GROUP BY id 
+      ORDER BY cnt DESC) as t
+    on t.id = b.id;
   </select>
 
    <select id="readById" resultType="Board"> 
