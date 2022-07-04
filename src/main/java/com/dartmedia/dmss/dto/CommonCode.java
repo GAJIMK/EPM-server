@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommonCode {
-  private String classCode;
   private Short commonCode;
   private String commonName;
 }

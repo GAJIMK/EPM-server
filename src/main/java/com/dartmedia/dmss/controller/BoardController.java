@@ -127,13 +127,7 @@ public class BoardController {
           result = resService.getMultiResult(findBoard);
         else
           result = resService.getMultiFailType(CommonResponse.NODATA);
-
       }
-
-      // JSONArray jsonArray = JSONArray.fromObject(findTeam);
-
-      // JSONObject jsonObj = new JSONObject();
-
     } catch (Exception e) {
       log.error("처리중 예외 : " + e.getMessage());
       result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
