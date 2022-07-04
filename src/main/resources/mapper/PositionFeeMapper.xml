@@ -4,11 +4,11 @@
 
   <insert id="create">   
     insert into PositionFeeMapper 
-    values(#{positionFeeCode}, #{feeCode}, #{fee})
+    values(#{positionCode}, #{feeCode}, #{fee})
   </insert> 
   
   <select id="findAll" resultType="PositionFeeMapper">
-    select p.CommonCode as positionCode, p.CommonName as positionNm, f.summCodeName as feeNm, f.summCodeName as feeNm, m.fee
+    select p.CommonCode as positionCode, p.CommonName as positionNm, f.summCode as feeCode, f.summCodeName as feeNm, f.summCodeName as feeNm, m.fee
     from PositionFeeMapper as m
     inner join( select * from CommonCode where classCode = 'Position' ) as p
     on p.CommonCode = m.positionCode
@@ -20,12 +20,12 @@
   <update id="update">
     update PositionFeeMapper
     set fee=#{fee}
-    where positionFeeCode=#{positionFeeCode} and feeCode=#{feeCode}
+    where positionCode=#{positionCode} and feeCode=#{feeCode}
   </update>
 
   <select id ="readByCode" resultType="PositionFeeMapper">
     select * 
     from PositionFeeMapper
-    where positionFeeCode=#{positionFeeCode} and feeCode=#{feeCode}
+    where positionCode=#{positionCode} and feeCode=#{feeCode}
   </select>
 </mapper>

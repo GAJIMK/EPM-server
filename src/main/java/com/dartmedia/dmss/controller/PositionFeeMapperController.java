@@ -2,11 +2,16 @@ package com.dartmedia.dmss.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dartmedia.dmss.common.CommonResult;
 import com.dartmedia.dmss.common.MultiResult;
 import com.dartmedia.dmss.core.ResponseService;
 import com.dartmedia.dmss.core.ResponseService.CommonResponse;
@@ -42,6 +47,37 @@ public class PositionFeeMapperController {
       log.error("예외:" + e.getMessage());
       result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
     }
+    return ResponseEntity.ok().body(result);
+  }
+
+  @ApiOperation(value = "직급별 비용 개별 수정", notes = "직급별 비용 개별 수정")
+  @PostMapping("/") // POST HTTP 메서드
+  public ResponseEntity<?> update(@Valid @RequestBody PositionFeeMapper data) {
+
+    CommonResult result = null;
+
+    try {
+      short feeCode = data.getFeeCode();
+      short positionCode = data.getPositionCode();
+      if (feeCode > 0 && positionCode > 0) {
+        PositionFeeMapper getData = service.readByCode(positionCode, feeCode);
+
+        if (getData != null) {
+          service.update(data);
+
+          result = resService.getSuccessResult();
+        } else {
+          result = resService.getSingleFailType(CommonResponse.NODATA);
+        }
+      } else {
+        result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
+      }
+
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getSingleFailType(CommonResponse.ERR);
+    }
+
     return ResponseEntity.ok().body(result);
   }
 

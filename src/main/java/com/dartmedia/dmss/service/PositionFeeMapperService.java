@@ -33,7 +33,7 @@ public class PositionFeeMapperService implements PositionFeeMapperMapper {
 
   @Override
   public void update(PositionFeeMapper t) throws Exception {
-    // TODO Auto-generated method stub
+    mapper.update(t);
 
   }
 
@@ -44,7 +44,7 @@ public class PositionFeeMapperService implements PositionFeeMapperMapper {
   }
 
   @Override
-  public PositionFeeMapper readByCode(int positionCode, int feeCode) throws Exception {
+  public PositionFeeMapper readByCode(short positionCode, short feeCode) throws Exception {
     // TODO Auto-generated method stub
     return mapper.readByCode(positionCode, feeCode);
   }
