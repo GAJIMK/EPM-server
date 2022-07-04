@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Api(tags = { "6. RequestConfirm" })
+@Api(tags = { "61. RequestConfirm" })
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/requestConfirm")
@@ -97,14 +97,14 @@ public class RequestConfirmController {
   public ResponseEntity<?> findRequestConfirmByIdNo(@PathVariable("idNo") String idNo) {
 
     MultiResult<RequestConfirm> result = null;
-    try{
+    try {
       List<RequestConfirm> findConfirm = requestConfirmService.findRequestConfirmByIdNo(idNo);
       result = responseService.getMultiResult(findConfirm);
-    } catch(Exception e){
+    } catch (Exception e) {
       log.error("처리 중 예외:", e.getMessage());
       result = responseService.getMultiFailType(ResponseService.CommonResponse.ERR);
     }
-  
+
     return ResponseEntity.ok().body(result);
 
   }

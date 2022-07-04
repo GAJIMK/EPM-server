@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // 로그기능 활성화
-@Api(tags = { "13. Thumbs" }) // SWAGGER 설정
+@Api(tags = { "52. Thumbs" }) // SWAGGER 설정
 @RequiredArgsConstructor
 @RestController // REST컨트롤러 설정
 @RequestMapping("/thumbs") // 최상단 API 경로 설정
@@ -72,8 +72,6 @@ public class ThumbsController {
     }
     return ResponseEntity.ok().body(result);
   }
-   
-
 
   @ApiOperation(value = "Thumbs 수정", notes = "Thumbs 수정")
   @PostMapping("/") // POST HTTP 메서드

@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * 실제로 필터, 인터셉터가 더 있으나 현재는 교육중으로 무시
  */
 @Slf4j // 로그기능 활성화
-@Api(tags = { "1. Account" }) // SWAGGER 설정
+@Api(tags = { "11. Account" }) // SWAGGER 설정
 @RequiredArgsConstructor
 @RestController // REST컨트롤러 설정
 @RequestMapping("/account") // 최상단 API 경로 설정

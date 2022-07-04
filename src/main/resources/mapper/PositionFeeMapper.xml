@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.PositionFeeMapperMapper">
+
+  <insert id="create">   
+    insert into PositionFeeMapper 
+    values(#{positionFeeCode}, #{feeCode}, #{fee})
+  </insert> 
+  
+  <select id="findAll" resultType="PositionFeeMapper">
+    select p.CommonCode as positionCode, p.CommonName as positionNm, f.summCodeName as feeNm, f.summCodeName as feeNm, m.fee
+    from PositionFeeMapper as m
+    inner join( select * from CommonCode where classCode = 'Position' ) as p
+    on p.CommonCode = m.positionCode
+    inner join (select * from feeSummCode where classCode='feePart') as f
+    on f.summCode = m.feeCode
+    group by p.CommonCode, p.CommonName, f.summCode, f.summCodeName, m.fee
+  </select>
+
+  <update id="update">
+    update PositionFeeMapper
+    set fee=#{fee}
+    where positionFeeCode=#{positionFeeCode} and feeCode=#{feeCode}
+  </update>
+
+  <select id ="readByCode" resultType="PositionFeeMapper">
+    select * 
+    from PositionFeeMapper
+    where positionFeeCode=#{positionFeeCode} and feeCode=#{feeCode}
+  </select>
+</mapper>

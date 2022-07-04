@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // 로그기능 활성화
-@Api(tags = { "11. UserFeeList" }) // SWAGGER 설정
+@Api(tags = { "31. UserFeeList" }) // SWAGGER 설정
 @RequiredArgsConstructor
 @RestController // REST컨트롤러 설정
 @RequestMapping("/userFeeList") // 최상단 API 경로 설정

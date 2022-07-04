@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Api(tags = { "5. 경비항목 expenseList" })
+@Api(tags = { "91. 경비항목 expenseList" })
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/expenseList")

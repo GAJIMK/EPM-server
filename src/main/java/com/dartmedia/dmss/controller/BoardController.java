@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // 로그기능 활성화
-@Api(tags = { "13. Board" }) // SWAGGER 설정
+@Api(tags = { "51. Board" }) // SWAGGER 설정
 @RequiredArgsConstructor
 @RestController // REST컨트롤러 설정
 @RequestMapping("/board") // 최상단 API 경로 설정
@@ -84,67 +84,67 @@ public class BoardController {
 
     return ResponseEntity.ok().body(result);
   }
- 
+
   @ApiOperation(value = "게시글 삭제", notes = "게시글 삭제")
-    @DeleteMapping("/{id}") // DELETE HTTP 메서드
-    public ResponseEntity<?> delete(@ApiParam(value = "id값", required = true) @PathVariable("id") short id) {
-        CommonResult result = null;
-        try {
+  @DeleteMapping("/{id}") // DELETE HTTP 메서드
+  public ResponseEntity<?> delete(@ApiParam(value = "id값", required = true) @PathVariable("id") short id) {
+    CommonResult result = null;
+    try {
 
-            // id가 존재하는지 확인
-            Board board = service.readById(id);
+      // id가 존재하는지 확인
+      Board board = service.readById(id);
 
-            if (board != null) {
-                // 팀이 존재하는 경우 삭제
-                service.deleteById(id);
+      if (board != null) {
+        // 팀이 존재하는 경우 삭제
+        service.deleteById(id);
 
-                result = resService.getSingleResult(CommonResponse.SUCCESS);
-            } else {
-                result = resService.getSingleFailType(CommonResponse.NODATA);
-            }
+        result = resService.getSingleResult(CommonResponse.SUCCESS);
+      } else {
+        result = resService.getSingleFailType(CommonResponse.NODATA);
+      }
 
-        } catch (Exception e) {
-            log.error("처리중 예외 : " + e.getMessage());
-            result = resService.getSingleFailType(CommonResponse.ERR);
-        }
-
-        return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getSingleFailType(CommonResponse.ERR);
     }
 
-    @ApiOperation(value = "게시글 전체 조회", notes = "게시글 전체 조회")
-    @GetMapping("/findAll")
-    public ResponseEntity<?> findAll() {
+    return ResponseEntity.ok().body(result);
+  }
 
-        MultiResult<Board> result = null;
+  @ApiOperation(value = "게시글 전체 조회", notes = "게시글 전체 조회")
+  @GetMapping("/findAll")
+  public ResponseEntity<?> findAll() {
 
-        try {
+    MultiResult<Board> result = null;
 
-            List<Board> findBoard = service.findAll();
+    try {
 
-            if (service.findAll() != null) {
+      List<Board> findBoard = service.findAll();
 
-                if (findBoard.size() > 0)
-                    result = resService.getMultiResult(findBoard);
-                else
-                    result = resService.getMultiFailType(CommonResponse.NODATA);
+      if (service.findAll() != null) {
 
-            }
+        if (findBoard.size() > 0)
+          result = resService.getMultiResult(findBoard);
+        else
+          result = resService.getMultiFailType(CommonResponse.NODATA);
 
-            // JSONArray jsonArray = JSONArray.fromObject(findTeam);
+      }
 
-            // JSONObject jsonObj = new JSONObject();
+      // JSONArray jsonArray = JSONArray.fromObject(findTeam);
 
-        } catch (Exception e) {
-            log.error("처리중 예외 : " + e.getMessage());
-            result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
-        }
+      // JSONObject jsonObj = new JSONObject();
 
-        return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
     }
 
-    @ApiOperation(value = "페이지별 조회", notes = "페이지별 조회")
-    @GetMapping("/findBypage")
-    public ResponseEntity<?> findBypage(int page) {
+    return ResponseEntity.ok().body(result);
+  }
+
+  @ApiOperation(value = "페이지별 조회", notes = "페이지별 조회")
+  @GetMapping("/findBypage")
+  public ResponseEntity<?> findBypage(int page) {
     MultiResult<Board> result = null;
 
     try {
@@ -177,5 +177,5 @@ public class BoardController {
     }
     return ResponseEntity.ok().body(result);
   }
-   
+
 }

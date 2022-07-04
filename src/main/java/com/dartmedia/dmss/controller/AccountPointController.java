@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Api(tags = { "7. AccountPoint" })
+@Api(tags = { "12. AccountPoint" })
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/accountpoint")
