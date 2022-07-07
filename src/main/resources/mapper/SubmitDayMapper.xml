@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.SubmitDayMapper">
+
+
+  <insert id ="create">
+   INSERT INTO SubmitDay(startDay, endDay, totalDay ) 
+   values
+   (
+    CONVERT(CHAR(23), #{startDay}, 23),
+    CONVERT(CHAR(23),  #{endDay}, 23),
+     #{totalDay}
+     )
+  </insert>
+  
+   <select id="findAll" resultType="SubmitDay">
+    SELECT * FROM SubmitDay
+    ORDER BY startDay DESC
+  </select>
+
+</mapper>
