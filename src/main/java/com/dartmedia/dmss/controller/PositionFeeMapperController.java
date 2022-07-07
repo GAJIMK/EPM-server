@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,11 +33,10 @@ public class PositionFeeMapperController {
   private final ResponseService resService;
   private final PositionFeeMapperService service;
 
-  @ApiOperation(value = "직급별 경비 조회", notes = "직급별 경비 조회")
+  @ApiOperation(value = "직급별 경비 전체 조회", notes = "직급별 경비 조회")
   @GetMapping("/findAll")
   public ResponseEntity<?> findAll() {
     MultiResult<PositionFeeMapper> result = null;
-
     try {
       List<PositionFeeMapper> list = service.findAll();
       if (list.size() > 0)
@@ -50,7 +50,7 @@ public class PositionFeeMapperController {
     return ResponseEntity.ok().body(result);
   }
 
-  @ApiOperation(value = "직급별 비용 개별 수정", notes = "직급별 비용 개별 수정")
+  @ApiOperation(value = "직급별 비용 개별 수정", notes = "feeCode, positionCode, fee 입력")
   @PostMapping("/") // POST HTTP 메서드
   public ResponseEntity<?> update(@Valid @RequestBody PositionFeeMapper data) {
 
@@ -81,4 +81,32 @@ public class PositionFeeMapperController {
     return ResponseEntity.ok().body(result);
   }
 
+  @ApiOperation(value = "UserFeeList 개별 등록", notes = "UserFeeList 개별 등록")
+  @PutMapping("/") // PUT HTTP 메서드
+  public ResponseEntity<?> create(@Valid @RequestBody PositionFeeMapper data) {
+
+    // PUT, POST, DELETE HTTP 메서드는 데이터 응답이 아닌 결과만 알려주면 되므로 CommonResult로 리턴
+    CommonResult result = null;
+
+    try {
+      if (data.getFeeCode() != 0 && data.getPositionCode() != 0) {
+        PositionFeeMapper item = service.readByCode(data.getPositionCode(), data.getFeeCode());
+
+        if (item != null) {
+
+          result = resService.getSingleFailType(CommonResponse.EXIST);
+        } else {
+
+          service.create(data);
+          result = resService.getSingleResult(data);
+        }
+
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
+      result = resService.getSuccessResult();
+    }
+    return ResponseEntity.ok().body(result);
+  }
 }

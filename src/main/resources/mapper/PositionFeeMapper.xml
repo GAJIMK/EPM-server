@@ -8,13 +8,15 @@
   </insert> 
   
   <select id="findAll" resultType="PositionFeeMapper">
-    select p.CommonCode as positionCode, p.CommonName as positionNm, f.summCode as feeCode, f.summCodeName as feeNm, f.summCodeName as feeNm, m.fee
-    from PositionFeeMapper as m
-    inner join( select * from CommonCode where classCode = 'Position' ) as p
-    on p.CommonCode = m.positionCode
-    inner join (select * from feeSummCode where classCode='feePart') as f
-    on f.summCode = m.feeCode
-    group by p.CommonCode, p.CommonName, f.summCode, f.summCodeName, m.fee
+    select P.positionNm,P.positionCode,P.feeNm,P.feeCode,M.fee
+    from PositionFeeMapper as M
+    right outer join (
+	    select * 
+	    from (select CommonName as positionNm, CommonCode as positionCode  from CommonCode where classcode='position' and CommonCode>0 and <![CDATA[CommonCode<36]]>) as p 
+	    cross join  (select summCodeName as feeNm ,summCode as feeCode from feeSummCode where classcode='feePart' and summCode>0) as f 
+    )as P
+    on M.positionCode=p.positionCode and M.feeCode=p.feeCode
+    order by P.positionCode
   </select>
 
   <update id="update">
@@ -27,5 +29,11 @@
     select * 
     from PositionFeeMapper
     where positionCode=#{positionCode} and feeCode=#{feeCode}
+  </select>
+
+  <select id="readByPosition" resultType="PositionFeeMapper">
+    select * 
+    from positionFeeMapperMapper
+    where positionCode=#{positionCode}
   </select>
 </mapper>
