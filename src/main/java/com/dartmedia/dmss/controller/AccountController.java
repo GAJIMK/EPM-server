@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.dartmedia.dmss.common.CommonResult;
 import com.dartmedia.dmss.common.MultiResult;
+import com.dartmedia.dmss.common.SingleResult;
 import com.dartmedia.dmss.core.ResponseService;
 import com.dartmedia.dmss.core.ResponseService.CommonResponse;
 import com.dartmedia.dmss.dto.Account;
@@ -69,27 +70,25 @@ public class AccountController {
         return ResponseEntity.ok().body(result);
     }
 
-    @ApiOperation(value = "Account 리스트 전체 조회", notes = "Account 리스트 전체 조회") // SWAGGER 문서 설정
+    @ApiOperation(value = "Account 아이디별 조회", notes = "Account 아이디별 조회") // SWAGGER 문서 설정
     @GetMapping("/findAll/{idNo}") // GET HTTP 메서드, API 경로 설정
     public ResponseEntity<?> findAccountsByIdNo(@PathVariable("idNo") String idNo) {
 
         // GET HTTP 메서드인 경우 결과값을 리턴해주기때문에 MultiResult or SingleResult로 담아서 리턴
-        MultiResult<Account> result = null;
+        CommonResult result = null;
 
         try {
             // 서비스를 통해 전체 조회
-            List<Account> findAccount = accountService.findAccountsByIdNo(idNo);
-
-            // 조회한 결과값이 1개 이상인 경우 결과출력
-            if (findAccount.size() > 0)
-                result = responseService.getMultiResult(findAccount);
+            Account findAccount = accountService.findAccountsByIdNo(idNo);
+            if (findAccount != null)
+                result = responseService.getSingleResult(findAccount);
             else // 없는 경우 NODATA로 응답
-                result = responseService.getMultiFailType(CommonResponse.NODATA); // 데이터 없음으로 응답, CommonResponse에 사전에
-                                                                                  // 선언된 결과값이 있음
+                result = responseService.getSingleFailType(CommonResponse.NODATA); // 데이터 없음으로 응답, CommonResponse에 사전에
+                                                                                   // 선언된 결과값이 있음
 
         } catch (Exception e) {
             log.error("처리중 예외 : " + e.getMessage());
-            result = responseService.getMultiFailType(ResponseService.CommonResponse.ERR); // 예외 발생시 에러로 응답
+            result = responseService.getSingleFailType(ResponseService.CommonResponse.ERR); // 예외 발생시 에러로 응답
         }
 
         // 해당 결과값을 API 응답으로 리턴

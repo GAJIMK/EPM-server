@@ -47,7 +47,7 @@ public class AccountService implements AccountMapper {
     }
 
     @Override
-    public List<Account> findAccountsByIdNo(String idNo) throws Exception {
+    public Account findAccountsByIdNo(String idNo) throws Exception {
         return mapper.findAccountsByIdNo(idNo);
     }
 

@@ -33,7 +33,9 @@
 
   <select id="readByPosition" resultType="PositionFeeMapper">
     select * 
-    from positionFeeMapper
+    from positionFeeMapper as m 
+    inner join (select summCodeName as feeNm ,summCode as feeCode from feeSummCode where classcode='feePart' and summCode>0)as f
+    on m.feeCode = f.feeCode
     where positionCode=#{positionCode}
   </select>
 </mapper>
