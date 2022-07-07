@@ -33,7 +33,7 @@
 
   <select id="readByPosition" resultType="PositionFeeMapper">
     select * 
-    from positionFeeMapperMapper
+    from positionFeeMapper
     where positionCode=#{positionCode}
   </select>
 </mapper>

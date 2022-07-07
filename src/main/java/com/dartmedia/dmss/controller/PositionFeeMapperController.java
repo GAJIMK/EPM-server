@@ -33,12 +33,29 @@ public class PositionFeeMapperController {
   private final ResponseService resService;
   private final PositionFeeMapperService service;
 
-  @ApiOperation(value = "직급별 경비 전체 조회", notes = "직급별 경비 조회")
+  @ApiOperation(value = "전체/ 경비 전체 조회", notes = "전체/ 경비 조회")
   @GetMapping("/findAll")
   public ResponseEntity<?> findAll() {
     MultiResult<PositionFeeMapper> result = null;
     try {
       List<PositionFeeMapper> list = service.findAll();
+      if (list.size() > 0)
+        result = resService.getMultiResult(list);
+      else
+        result = resService.getMultiFailType(CommonResponse.NODATA);
+    } catch (Exception e) {
+      log.error("예외:" + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+    return ResponseEntity.ok().body(result);
+  }
+
+  @ApiOperation(value = "직급/ 경비 전체 조회", notes = "positionCode 입력")
+  @GetMapping("/findByPosition")
+  public ResponseEntity<?> findByPosition(short positionCode) {
+    MultiResult<PositionFeeMapper> result = null;
+    try {
+      List<PositionFeeMapper> list = service.readByPosition(positionCode);
       if (list.size() > 0)
         result = resService.getMultiResult(list);
       else

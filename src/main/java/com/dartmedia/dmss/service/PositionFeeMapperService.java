@@ -48,4 +48,10 @@ public class PositionFeeMapperService implements PositionFeeMapperMapper {
     // TODO Auto-generated method stub
     return mapper.readByCode(positionCode, feeCode);
   }
+
+  @Override
+  public List<PositionFeeMapper> readByPosition(short positionCode) throws Exception {
+    // TODO Auto-generated method stub
+    return mapper.readByPosition(positionCode);
+  }
 }
