@@ -13,5 +13,9 @@
      )
   </insert>
   
+   <select id="findAll" resultType="SubmitDay">
+    SELECT * FROM SubmitDay
+    ORDER BY startDay DESC
+  </select>
 
 </mapper>

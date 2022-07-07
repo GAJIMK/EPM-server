@@ -29,7 +29,7 @@ public void create(SubmitDayMapper t) throws Exception {
 @Override
 public List<SubmitDayMapper> findAll() throws Exception {
     // TODO Auto-generated method stub
-    return null;
+    return mapper.findAll();
 }
 
 @Override

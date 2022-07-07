@@ -9,6 +9,7 @@ import com.dartmedia.dmss.common.MultiResult;
 import com.dartmedia.dmss.core.ResponseService;
 import com.dartmedia.dmss.core.ResponseService.CommonResponse;
 import com.dartmedia.dmss.dto.SubmitDay;
+import com.dartmedia.dmss.mapper.SubmitDayMapper;
 import com.dartmedia.dmss.service.SubmitDayService;
 
 import org.springframework.http.HttpStatus;
@@ -55,5 +56,30 @@ public class SubmitDayController {
     return new ResponseEntity<>( SubmitDay, HttpStatus.OK);
   }
 
+
+  @ApiOperation(value = "전체 조회", notes = "전체 조회")
+  @GetMapping("/findAll")
+  public ResponseEntity<?> findAll() {
+
+    MultiResult<SubmitDayMapper> result = null;
+
+    try {
+
+      List<SubmitDayMapper> findSubmitDay = service.findAll();
+
+      if (service.findAll() != null) {
+
+        if (findSubmitDay.size() > 0)
+          result = resService.getMultiResult(findSubmitDay);
+        else
+          result = resService.getMultiFailType(CommonResponse.NODATA);
+      }
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+
+    return ResponseEntity.ok().body(result);
+  }
 
 }
