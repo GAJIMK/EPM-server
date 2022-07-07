@@ -4,11 +4,11 @@
 
 
   <insert id ="create">
-   insert into SubmitDay(startDay, endDay, totalDay ) 
+   INSERT INTO SubmitDay(startDay, endDay, totalDay ) 
    values
    (
-     #{startDay},
-     #{endDay},
+    CONVERT(CHAR(23), #{startDay}, 23),
+    CONVERT(CHAR(23),  #{endDay}, 23),
      #{totalDay}
      )
   </insert>
