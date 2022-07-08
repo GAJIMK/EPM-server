@@ -72,7 +72,6 @@ public class PositionFeeMapperController {
   public ResponseEntity<?> update(@Valid @RequestBody PositionFeeMapper data) {
 
     CommonResult result = null;
-
     try {
       short feeCode = data.getFeeCode();
       short positionCode = data.getPositionCode();

@@ -41,18 +41,19 @@ public class ThumbsController {
 
   @ApiOperation(value = "Thumbs 등록", notes = "Thumbs 등록")
   @PutMapping("/") // PUT HTTP 메서드
-  public ResponseEntity<Thumbs> create(@Valid @RequestBody Thumbs thumbs) {
+  public ResponseEntity<?> create(@Valid @RequestBody Thumbs thumbs) {
 
     // PUT, POST, DELETE HTTP 메서드는 데이터 응답이 아닌 결과만 알려주면 되므로 CommonResult로 리턴
     CommonResult result = null;
 
     try {
       service.create(thumbs);
+      result = resService.getSuccessResult();
     } catch (Exception e) {
       e.printStackTrace();
+      result = resService.getSingleFailType(ResponseService.CommonResponse.EXIST);
     }
-    result = resService.getSuccessResult();
-    return new ResponseEntity<>(thumbs, HttpStatus.OK);
+    return ResponseEntity.ok().body(result);
   }
 
   @ApiOperation(value = "게시글 별 count 수 ", notes = "게시글 별 count 수 ")
