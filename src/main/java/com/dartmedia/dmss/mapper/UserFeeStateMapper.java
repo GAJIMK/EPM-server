@@ -14,4 +14,8 @@ public interface UserFeeStateMapper extends IMapper<UserFeeState> {
   public List<UserFeeState> findAllByUser(String accountId) throws Exception;
 
   public UserFeeState readByDate(String accountId, Date date) throws Exception;
+
+  public void approveState(String accountId, Date date) throws Exception;
+
+  public void rejectState(String accountId, Date date) throws Exception;
 }

@@ -46,5 +46,16 @@
     order by s.date desc
   </select>  
 
+   <update id="approveState">
+  UPDATE userFeeState
+  SET state=10
+  WHERE accountId=#{accountId} and date=#{date}
+  </update>
+   <update id="rejectState">
+  UPDATE userFeeState
+  SET state=40
+  WHERE accountId=#{accountId} and date=#{date}
+  </update>
+
 
 </mapper>

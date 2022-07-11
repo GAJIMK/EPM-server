@@ -16,6 +16,8 @@ public interface UserFeeListMapper extends IMapper<UserFeeList> {
 
   public void updateUnstable(int id);
 
+  public void updateStable(int id);
+
   public List<UserFeeList> findAll(String accountId) throws Exception;
 
   public List<UserFeeList> findByPartId(String accountId, String date, short part) throws Exception;

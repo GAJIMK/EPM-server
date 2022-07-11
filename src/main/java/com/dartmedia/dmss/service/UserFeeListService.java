@@ -42,13 +42,18 @@ public class UserFeeListService implements UserFeeListMapper {
   }
 
   @Override
-  public void deleteById(short id) throws Exception {
+  public void deleteById(int id) throws Exception {
     mapper.deleteById(id);
   }
 
   @Override
   public void updateUnstable(int id) {
     mapper.updateUnstable(id);
+  }
+
+  @Override
+  public void updateStable(int id) {
+    mapper.updateStable(id);
   }
 
   public List<UserFeeList> findByAccountId(String accountId, String date) throws Exception {

@@ -63,4 +63,16 @@ public class UserFeeStateService implements UserFeeStateMapper {
     return null;
   }
 
+  @Override
+  public void approveState(String accountId, Date date) throws Exception {
+    mapper.approveState(accountId, date);
+
+  }
+
+  @Override
+  public void rejectState(String accountId, Date date) throws Exception {
+    mapper.rejectState(accountId, date);
+
+  }
+
 }
