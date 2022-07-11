@@ -47,8 +47,8 @@ public class UserFeeListService implements UserFeeListMapper {
   }
 
   @Override
-  public void updateStateById(int id) {
-    mapper.updateStateById(id);
+  public void updateUnstable(int id) {
+    mapper.updateUnstable(id);
   }
 
   public List<UserFeeList> findByAccountId(String accountId, String date) throws Exception {

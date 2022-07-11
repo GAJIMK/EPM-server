@@ -76,9 +76,14 @@
         WHERE   id=#{id} 
     </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
 
-  <update id="updateStateById">
+  <update id="updateUnstable">
   UPDATE UserFeeList
-  SET state=#{state}
+  SET state=40
+  WHERE id=#{id}
+  </update>
+  <update id="updateStable">
+  UPDATE UserFeeList
+  SET state=50
   WHERE id=#{id}
   </update>
 

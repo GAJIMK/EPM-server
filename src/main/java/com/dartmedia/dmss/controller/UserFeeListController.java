@@ -154,7 +154,7 @@ public class UserFeeListController {
 
   @ApiOperation(value = "UserFeeList id값 통한 개별 삭제 ")
   @DeleteMapping("/{id}")
-  public ResponseEntity<?> deleteById(@ApiParam(value = "리스트 ID", required = true) @PathVariable("id") short id) {
+  public ResponseEntity<?> deleteById(@ApiParam(value = "리스트 ID", required = true) @PathVariable("id") int id) {
     CommonResult result = null;
     try {
       UserFeeList list = service.readById(id);
@@ -174,35 +174,50 @@ public class UserFeeListController {
     return ResponseEntity.ok().body(result);
   }
 
-  // @ApiOperation(value = "UserFeeList State변경", notes = "UserFeeList State변경")
-  // @PostMapping("/{updateState/}") // PATCH HTTP 메서드
-  // public ResponseEntity<?> updateState(@PathVariable("id") int id, @RequestBody
-  // UserFeeList userFeeList) {
+  @ApiOperation(value = "UserFeeList State변경", notes = "UserFeeList State변경")
+  @PostMapping("/unstable/{id}") // PATCH HTTP 메서드
+  public ResponseEntity<?> updateUnStable(@ApiParam(value = "리스트 ID", required = true) @PathVariable("id") int id) {
 
-  // CommonResult result = null;
+    CommonResult result = null;
 
-  // try {
+    try {
+      UserFeeList list = service.readById(id);
+      if (list != null) {
+        service.updateUnstable(id);
+        result = resService.getSingleResult(CommonResponse.SUCCESS);
+      } else {
+        result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
+      }
 
-  // if (userFeeList.getAccountId() != null) {
-  // UserFeeList readList = service.readById(userFeeList.getId());
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getSingleFailType(CommonResponse.ERR);
+    }
 
-  // if (readList != null) {
-  // service.updateStateById(id);
+    return ResponseEntity.ok().body(result);
+  }
 
-  // result = resService.getSuccessResult();
-  // } else {
-  // result = resService.getSingleFailType(CommonResponse.NODATA);
-  // }
-  // } else {
-  // result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
-  // }
+  @ApiOperation(value = "UserFeeList State변경", notes = "UserFeeList State변경")
+  @PostMapping("/stable/{id}") // PATCH HTTP 메서드
+  public ResponseEntity<?> updateStable(@ApiParam(value = "리스트 ID", required = true) @PathVariable("id") int id) {
 
-  // } catch (Exception e) {
-  // log.error("처리중 예외 : " + e.getMessage());
-  // result = resService.getSingleFailType(CommonResponse.ERR);
-  // }
+    CommonResult result = null;
 
-  // return ResponseEntity.ok().body(result);
-  // }
+    try {
+      UserFeeList list = service.readById(id);
+      if (list != null) {
+        service.updateStable(id);
+        result = resService.getSingleResult(CommonResponse.SUCCESS);
+      } else {
+        result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
+      }
+
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getSingleFailType(CommonResponse.ERR);
+    }
+
+    return ResponseEntity.ok().body(result);
+  }
 
 }
