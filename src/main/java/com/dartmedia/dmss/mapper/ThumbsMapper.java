@@ -16,4 +16,6 @@ public interface ThumbsMapper extends IMapper<Thumbs> {
 
   public List<Thumbs> selectTop5() throws Exception;
 
+  public Thumbs readById(String accountId, int id);
+
 }

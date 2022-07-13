@@ -47,6 +47,7 @@ public class ThumbsController {
     CommonResult result = null;
 
     try {
+      
       service.create(thumbs);
       result = resService.getSuccessResult();
     } catch (Exception e) {
