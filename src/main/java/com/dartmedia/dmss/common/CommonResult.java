@@ -11,7 +11,9 @@ import lombok.Setter;
 @Setter
 public class CommonResult {
 
-  @ApiModelProperty(value = "true:성공,false:실패")
+  public static final String SUCCESS = null;
+
+@ApiModelProperty(value = "true:성공,false:실패")
   private boolean success;
 
   @ApiModelProperty(value = " 결과코드 0:정상, 결과코드 < 0 : 비정상")

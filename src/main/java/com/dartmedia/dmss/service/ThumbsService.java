@@ -62,4 +62,8 @@ public class ThumbsService implements ThumbsMapper {
     return null;
   }
 
+  public Thumbs readById(String accountId, int id) {
+    return mapper.readById(accountId, id);
+  }
+
 }
