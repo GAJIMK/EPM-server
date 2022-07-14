@@ -14,20 +14,17 @@ import org.springframework.context.annotation.Configuration;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception
-    {
+    protected void configure(HttpSecurity http) throws Exception {
         http.httpBasic().disable();
 
         http.csrf().disable()
-            .authorizeRequests()
-            .antMatchers("/**")
-            .permitAll();   // 현재는 모든 요청 허용, 실 서비스 적용시에는 제한 검
+                .authorizeRequests()
+                .antMatchers("/**")
+                .permitAll(); // 현재는 모든 요청 허용, 실 서비스 적용시에는 제한 검
     }
 
-
     @Override
-    public void configure(WebSecurity web) throws Exception
-    {
+    public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/static/**");
     }
 }
