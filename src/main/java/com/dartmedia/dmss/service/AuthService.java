@@ -17,4 +17,9 @@ public class AuthService implements AuthMapper {
     return mapper.login(accountId, password);
   }
 
+  @Override
+  public String isExist(String accountId) throws Exception {
+    return mapper.isExist(accountId);
+  }
+
 }

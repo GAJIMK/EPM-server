@@ -7,4 +7,6 @@ import com.dartmedia.dmss.dto.Auth;
 public interface AuthMapper {
   public Auth login(String accountId, String password) throws Exception;
 
+  public String isExist(String accountId) throws Exception;
+
 }

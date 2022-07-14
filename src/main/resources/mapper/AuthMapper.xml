@@ -8,4 +8,9 @@
     where accountId=#{accountId} and password=#{password} 
   </select>
 
+  <select id="isExist" resultType="String">
+    SELECT CASE WHEN (count(*) > 0) THEN 'true' ELSE 'false' END AS role
+  FROM feeadmin where adminId=#{accountId}
+  </select>
+
 </mapper>

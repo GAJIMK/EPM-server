@@ -35,10 +35,14 @@ public class AuthController {
   public ResponseEntity<?> login(@Valid @RequestBody Auth user) {
     CommonResult rs = null;
     try {
-      Auth auth = service.login(user.getAccountId(), user.getPassword());
-      if (auth != null) {
-        auth.setRole("USER");
-        rs = responseService.getSingleResult(auth);
+      Auth account = service.login(user.getAccountId(), user.getPassword());
+      if (account != null) {
+        String auth = service.isExist(user.getAccountId());
+        if (auth.equals("true"))
+          account.setRole("ADMIN");
+        else
+          account.setRole("USER");
+        rs = responseService.getSingleResult(account);
       } else
         rs = responseService.getSingleFailType(CommonResponse.NODATA);
     } catch (Exception e) {
