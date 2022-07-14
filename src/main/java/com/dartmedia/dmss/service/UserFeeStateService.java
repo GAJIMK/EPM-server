@@ -75,4 +75,10 @@ public class UserFeeStateService implements UserFeeStateMapper {
 
   }
 
+  @Override
+  public void ingState(String accountId, Date date) throws Exception {
+    mapper.ingState(accountId, date);
+
+  }
+
 }

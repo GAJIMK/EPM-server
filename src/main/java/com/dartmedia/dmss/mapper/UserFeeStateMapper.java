@@ -18,4 +18,6 @@ public interface UserFeeStateMapper extends IMapper<UserFeeState> {
   public void approveState(String accountId, Date date) throws Exception;
 
   public void rejectState(String accountId, Date date) throws Exception;
+
+  public void ingState(String accountId, Date date) throws Exception;
 }

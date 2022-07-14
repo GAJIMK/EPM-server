@@ -56,6 +56,11 @@
   SET state=40
   WHERE accountId=#{accountId} and date=#{date}
   </update>
+   <update id="ingState">
+  UPDATE userFeeState
+  SET state=50
+  WHERE accountId=#{accountId} and date=#{date}
+  </update>
 
 
 </mapper>

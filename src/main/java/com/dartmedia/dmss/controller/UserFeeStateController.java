@@ -156,4 +156,29 @@ public class UserFeeStateController {
 
     return ResponseEntity.ok().body(result);
   }
+
+  @ApiOperation(value = "state를 진행중 상태로 변경", notes = "state를 진행중 상태로 변경")
+  @PostMapping("/ing/{accountId}/date/{date}") // PATCH HTTP 메서드
+  public ResponseEntity<?> readApprove(
+      @ApiParam(value = "사용자 id와 date", required = true) @PathVariable("accountId") String accountId,
+      @PathVariable("date") Date date) {
+
+    CommonResult result = null;
+
+    try {
+      UserFeeState list = service.readByDate(accountId, date);
+      if (list != null) {
+        service.ingState(accountId, date);
+        result = resService.getSingleResult(CommonResponse.SUCCESS);
+      } else {
+        result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
+      }
+
+    } catch (Exception e) {
+      log.error("처리중 예외 : " + e.getMessage());
+      result = resService.getSingleFailType(CommonResponse.ERR);
+    }
+
+    return ResponseEntity.ok().body(result);
+  }
 }
