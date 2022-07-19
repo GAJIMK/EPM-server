@@ -5,6 +5,6 @@ import com.dartmedia.dmss.core.MapperInterface;
 import com.dartmedia.dmss.dto.AccountPoint;
 
 @MapperInterface
-public interface AccountPointMapper  extends IMapper<AccountPoint>{
-  
+public interface AccountPointMapper extends IMapper<AccountPoint> {
+
 }

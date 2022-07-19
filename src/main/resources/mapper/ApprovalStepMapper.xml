@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.ApprovalStepMapper">
+
+  <select id="readByTeamNo" resultType="ApprovalStep">
+    select a.accountId,ac.accountNm, a.teamno, t.UpperTeamNo from appoint as a
+    inner join (select teamNo, UpperTeamNo from Team) as t
+    on t.TeamNo = a.TeamNo
+    inner join (select accountId, accountNm from account) as ac 
+    on a.AccountId = ac.AccountId
+    where t.TeamNo=#{teamNo} and a.ManagerYn='Y'
+  </select>
+
+</mapper>
