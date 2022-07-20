@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Api(tags = { "12. AccountPoint" })
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/accountpoint")
+@RequestMapping("/appoint")
 public class AccountPointController {
   private final ResponseService responseService;
   private final AccountPointService accountPointService;
