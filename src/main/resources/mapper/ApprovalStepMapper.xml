@@ -6,7 +6,7 @@
     select a.accountId,ac.accountNm, a.teamno, t.UpperTeamNo from appoint as a
     inner join (select teamNo, UpperTeamNo from Team) as t
     on t.TeamNo = a.TeamNo
-    inner join (select accountId, accountNm from account) as ac 
+    inner join (select accountId, accountNm from account where tpPublish!=50) as ac 
     on a.AccountId = ac.AccountId
     where t.TeamNo=#{teamNo} and a.ManagerYn='Y'
   </select>
