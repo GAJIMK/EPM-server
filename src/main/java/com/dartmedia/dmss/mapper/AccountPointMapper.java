@@ -6,5 +6,5 @@ import com.dartmedia.dmss.dto.AccountPoint;
 
 @MapperInterface
 public interface AccountPointMapper extends IMapper<AccountPoint> {
-
+  public AccountPoint findTeamNo(String accountId) throws Exception;
 }

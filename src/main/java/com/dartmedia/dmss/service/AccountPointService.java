@@ -38,4 +38,9 @@ public class AccountPointService implements AccountPointMapper {
 	public void delete(String id) throws Exception {
 
 	}
+
+	@Override
+	public AccountPoint findTeamNo(String accountId) throws Exception {
+		return mapper.findTeamNo(accountId);
+	}
 }

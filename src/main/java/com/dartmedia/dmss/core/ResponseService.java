@@ -25,7 +25,7 @@ public class ResponseService {
     NODATA(-50, "데이터가 없습니다."), EMPTY_ID(-51, "ID정보가 비어있습니다."), AUTHFAIL(-60, "로그인 인증서가 유효 하지않습니다."),
     INACTIVE_MEMBER(-61, "휴면 계정입니다."), CLOSE_MEMBER(-62, "탈퇴한 회원입니다."), ERR_FILE_UPLOAD(-70, "파일 업로드 실패했습니다."),
     FILE_SIZE_EXCEEDED(-71, "파일 용량 초과했습니다."), NOT_ALLOW_FILE(-72, "허용되지 않는 파일 입니다."), NO_FILE(-73, "파일이 없습니다."),
-    ALREADY_PAID(-80, "결제된 정보가 있습니다.");
+    ALREADY_PAID(-80, "결제된 정보가 있습니다."), NO_PARAM(-88, "파라미터가 넘어오지 않음");
 
     int code;
     String msg;
