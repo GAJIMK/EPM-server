@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.UserFeeListMapper">
+
+  <select id="findByAccountId" resultType="UserFeeList">
+    SELECT * 
+    FROM 	UserFeeList
+    WHERE AccountId = #{accountId} and Date like #{date}+ '%'
+    ORDER BY DATE
+  </select>
+
+  <select id="findByPartId" resultType="UserFeeList">
+    SELECT * 
+    FROM UserFeeList
+    WHERE AccountId = #{accountId} and Date like #{date}+'%' and Part=#{part}
+    ORDER BY DATE
+  </select>
+
+  <select id="findAll" resultType="UserFeeList">
+    SELECT * 
+    FROM 	UserFeeList
+    WHERE AccountId = #{accountId}
+  </select>
+
+  <insert id ="create">
+  <selectKey resultType="int" keyProperty="id" keyColumn="id" order="BEFORE">
+            SELECT ISNULL(MAX(id),0)+1 AS id From UserFeeList
+        </selectKey>
+    INSERT
+    INTO UserFeeList 
+      (
+        id,
+        date,
+        content,
+        place,
+        companion,
+        method,
+        accountId,
+        part,
+        state,
+        price
+      )
+    VALUES
+    (
+        #{id},
+        #{date},
+        #{content},
+        #{place},
+        #{companion},
+        #{method},
+        #{accountId},
+        #{part},
+        50,
+        #{price}
+      )
+  </insert>
+  
+  <update id="update">
+  UPDATE UserFeeList
+  SET
+      date=#{date}
+      ,content=#{content}
+      ,place=#{place}
+      ,companion=#{companion}
+      ,method=#{method}
+      ,accountId=#{accountId}
+      ,part=#{part}
+      ,state=#{state}
+      ,price=#{price}
+  where id=#{id}
+  </update>
+
+   <select id="readById" resultType="UserFeeList"> 
+        SELECT  * 
+        FROM    UserFeeList 
+        WHERE   id=#{id} 
+    </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
+
+  <update id="updateUnstable">
+  UPDATE UserFeeList
+  SET state=40
+  WHERE id=#{id}
+  </update>
+  <update id="updateStable">
+  UPDATE UserFeeList
+  SET state=50
+  WHERE id=#{id}
+  </update>
+
+  <delete id ="deleteById">
+    DELETE 
+    FROM   UserFeeList
+    WHERE Id=#{id}
+  </delete>
+</mapper>

@@ -10,13 +10,13 @@ import com.dartmedia.dmss.mapper.AccountPointMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AccountPointService implements AccountPointMapper{
-  @Resource(name="accountPointMapper")
-  AccountPointMapper mapper;
+public class AccountPointService implements AccountPointMapper {
+	@Resource(name = "accountPointMapper")
+	AccountPointMapper mapper;
 
 	@Override
 	public void create(AccountPoint t) throws Exception {
-		
+
 	}
 
 	@Override
@@ -31,11 +31,16 @@ public class AccountPointService implements AccountPointMapper{
 
 	@Override
 	public void update(AccountPoint t) throws Exception {
-		
+
 	}
 
 	@Override
 	public void delete(String id) throws Exception {
-		
+
+	}
+
+	@Override
+	public AccountPoint findTeamNo(String accountId) throws Exception {
+		return mapper.findTeamNo(accountId);
 	}
 }

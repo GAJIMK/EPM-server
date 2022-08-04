@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j // 로그기능 활성화
-@Api(tags = { "4. Manager" }) // SWAGGER 설정
+@Api(tags = { "81. Manager" }) // SWAGGER 설정
 
 @RequiredArgsConstructor
 @RestController // REST컨트롤러 설정
@@ -98,8 +98,7 @@ public class ManagerController {
 
             if (manager.getManagerId() != null) {
 
-                    managerService.update(manager);
-
+                managerService.update(manager);
 
             } else {
                 result = responseService.getSingleFailType(CommonResponse.EMPTY_ID);

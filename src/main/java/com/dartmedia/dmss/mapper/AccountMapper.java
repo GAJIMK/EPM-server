@@ -13,7 +13,7 @@ import java.util.List;
  * Mybatis에서 resources/mapper/AccountMapper.xml 이랑 매핑하여 DB 동작을 자동으로 구현해줌
  */
 @MapperInterface
-public interface AccountMapper extends IMapper<Account>{
-    public List<Account> findAccountsByIdNo(String idNo) throws Exception;
+public interface AccountMapper extends IMapper<Account> {
+    public Account findAccountsByIdNo(String idNo) throws Exception;
 
 }

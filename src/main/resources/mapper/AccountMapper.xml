@@ -12,7 +12,7 @@
     <select id="findAccountsByIdNo" resultType="Account">
         SELECT	*
         FROM 	Account
-        WHERE   IdNo '%' + #{keyword} + '%'
+        WHERE   AccountId like '%' + #{idNo} + '%'
     </select>
 
     <select id="read" resultType="Account"> 
@@ -87,5 +87,4 @@
         FROM Account
         WHERE AccountId = #{id}
     </select>
-
 </mapper>

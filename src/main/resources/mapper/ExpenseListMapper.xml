@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.ExpenseListMapper">
+	
+    <!-- XML 파일 주석 쓰는 방법 -->
+    <!-- id명은 ExpenseListMapper 클래스의 함수명과 똑같이 해주기 -->
+    <select id="findAll" resultType="ExpenseList">
+        SELECT	*
+        FROM 	feeSummCode 
+        WHERE classCode='feePart' and summCode>0     
+    </select>
+
+    <select id="read" resultType="ExpenseList"> 
+        SELECT  * 
+        FROM    feeSummCode 
+        WHERE classCode='feePart'
+    </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
+    
+    <select id="readById" resultType="ExpenseList"> 
+        SELECT  *
+        FROM    feeSummCode 
+        WHERE   classCode='feePart' and summCode=#{summCode} 
+    </select> 
+
+    <insert id="create"> 
+      <selectKey resultType="short" keyProperty="summCode" keyColumn="summCode" order="BEFORE">
+            SELECT ISNULL(MAX(summCode),0)+10 AS summCode From feeSummCode WHERE classCode='feePart'
+    </selectKey>
+        INSERT 
+        INTO feeSummCode
+        VALUES
+                (
+                    'feePart',
+                    #{summCode},
+                    #{summCodeName}
+                ) 
+    </insert> <!-- insert, update는 리턴타입 없다. select만 --> 
+    
+    <update id="update"> 
+        UPDATE feeSummCode 
+        SET summCodeName=#{summCodeName}
+        WHERE classCode='feePart' and summCode=#{summCode} 
+    </update> 
+    
+    <delete id="deleteByList"> 
+
+    </delete> 
+
+</mapper>

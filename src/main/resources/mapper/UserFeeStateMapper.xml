@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dartmedia.dmss.mapper.UserFeeStateMapper">
+
+  <insert id="create">
+    INSERT INTO Userfeestate 
+    VALUES 
+    (
+      #{accountId},
+      #{date},
+      90,
+      (SELECT  ap.teamno 
+      FROM Appoint AS ap 
+      INNER JOIN Account AS ac
+      ON ap.AccountId = ac.AccountId
+      WHERE ac.accountId LIKE #{accountId} + '%')
+    )
+
+  </insert>
+
+   <select id="readByDate" resultType="UserFeeState"> 
+        SELECT  * 
+        FROM    UserFeeState 
+        WHERE   AccountId=#{accountId} and Date=#{date} 
+        ORDER BY date
+  </select> <!-- #을 쓰면 정수는 정수열, 문자는 문자열로, $는 String --> 
+  
+  <select id="findAllByDate" resultType="UserFeeState">
+ 
+    select a.AccountNm, s.accountid,c.CommonName, s.date, s.state
+    from account as a 
+    inner join userfeestate as s
+	  on a.accountId = s.accountid
+	  inner join CommonCode as c
+    on c.ClassCode = 'Position' and c.CommonCode = a.tpPosition
+    where date like  #{date} + '%'
+    order by s.date desc
+  </select>
+
+  <select id="findAllByUser" resultType="UserFeeState">
+    select a.AccountNm, s.accountid, s.date, s.state
+    from account as a 
+    inner join userfeestate as s
+	  on a.accountId = s.accountId
+    where a.accountId = #{accountId}
+    order by s.date desc
+  </select>  
+
+   <update id="approveState">
+  UPDATE userFeeState
+  SET state=10
+  WHERE accountId=#{accountId} and date=#{date}
+  </update>
+   <update id="rejectState">
+  UPDATE userFeeState
+  SET state=40
+  WHERE accountId=#{accountId} and date=#{date}
+  </update>
+   <update id="ingState">
+  UPDATE userFeeState
+  SET state=50
+  WHERE accountId=#{accountId} and date=#{date}
+  </update>
+
+
+</mapper>

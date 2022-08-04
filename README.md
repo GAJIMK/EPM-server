@@ -1,25 +1,31 @@
-# intern-account-server
-계정 관리 서버 - 인턴 프로젝트
-
-## DMSS인트라넷 서비스
+# Expense-management-server
+경비 관리 프로젝트 
 
 ## 개요
-
+기업의 경비로 지출이 되는 영업비, 복지비를 관리하기 위한 서비스 
 
 ## 서비스 방식
-구글, 페이스북/인스타그램 API를 통해 1시간 주기로 캠페인 정보 및 노출수를 가져와   
-1시간 전과 비교하여 캠페인 금액이 적거나 노출목표에 달성한 경우를 제외하고 노출이  
-늘지 않은 캠페인 정보를 취합하여 담당자에게 알림 메일을 발송함   
-추가로 매체 모니터링을 위한 API 제공(매체별 정상캠페인수, 비정상캠페인수)
+### 👤구성원 
+기업의 구성원들의 달별 경비 지출을 작성하고, 실시간으로 작성한 내용을 저장할 수 있다. 
+구성원들은 자신의 지난 제출 내역과, 제출한 내역에 대한 진행 상황을 확인할 수 있다. 
+
+
+### 🕵️‍♀️관리자
+경영지원실에서 최대 사용금액의 항목을 관리하거나, 직급별 지원 금액 등을 설정할 수 있다. 
+
+
+### 기타 
+점심 메뉴 랜덤 추천, 게시판 (공감하기/작성하기) ,핫 게시글
+
+
 
   
-## 개발사항 정리
-
-### Spec 정리
+## 개발환경 정리
 1. java 11
 2. Spring boot 2.2.1
 3. Build : Maven
 4. DB : MS-SQL
+4. MyBatis
 5. Git : 2.23.0
 6. WAS : Embedded Tomcat 9.0.27
 7. Test : JUnit
@@ -58,93 +64,24 @@
 7.  검은색 테마
     1.  Night Owl
 
-### VSCODE 조작방법 가이드
-
-https://demun.github.io/vscode-tutorial/
 
 ## API Request
 
-|번호|URL|설명|
-|---|---|---|
-|1|http://localhost:8080/account/findAll|사용자 계정 전체조회|
+|번호|URL|메소드|설명|
+|---|---|---|---| 
+|1|http://localhost:8009/auth/login|GET|로그인|
+|2|http://localhost:8009/account/|GET|사용자 리스트 전체 조회
+|3|http://localhost:8009/account/|PUT|사용자 등록
+|4|http://localhost:8009/account/|POST|사용자 정보 수정 
+|5|http://localhost:8009/account/{accountId}|DELETE|특정 사용자 삭제
+|6|http://localhost:8009/account/{accountId}|GET|특정 사용자 정보 조회
+|7|http://localhost:8009/appoint/findTeamNo?accountId={accountId}|GET|특정 사용자의 내부 팀아이디 조회
+|8|http://localhost:8009/userFeeList/findAll?accountId={accountId}|GET|특정 사용자의 작성한 전체 경비항목 조회|
+|9|http://localhost:8009/userFeeList/findByAccountId?accountId={accountId}&date={date}|GET|특정 사용자의 월별 경비항목 조회|
+|10|http://localhost:8009/userFeeList/findByPartId?accountId={accountId}&date={date}&part={partNo}|GET|특정 사용자의 월별, 그리고 특정 경비항목 조회
+|11|http://localhost:8009/userFeeList/|POST|경비항목 수정
+|12|http://localhost:8009/auth/login|---|
+|13|http://localhost:8009/auth/login|---|
 
 
-## Status 정리
 
-|번호|Code|설명|
-|---|---|---|
-|1|100|Success / 성공|
-|2|101|Success : No Data / 성공(배치돌았으나 값이없음)|
-|3|102|Success : Running Batch / 성공(서비스 시작후 배치가 도는중)|
-|4|200|Fail : DB Access / 실패(DB연결 문제)|
-|5|300|Fail : No Running Batch / 실패(배치 돌지 않음)|
-|6|301|Fail : Batch / 실패(배치 진행중 에러발생)|
-|7|400|Fail : No Data / 실패(데이터 없음)|
-|8|401|Fail : No Before Date / 실패(이전데이터 없음)|
-|9|402|Fail : Data Processing / 실패(데이터 처리중 에러발생)|
-|10|500|Fail : Config Error / 실패(컨피그 오류)|
-    
-## 초반 가이드
-GIT을 통해 파일을 가져오면 pom.xml에 정의 되어있는 의존성을 자동으로 가져온다  
-좌측하단 로딩 표시 가 멈추면 끝
-실행 파일은 vscode에서 자동으로 생성해주는데 F5 키를 눌러야함  
--> vscode에서 스프링부트 실행파일을 검색하여 만들어주는데 실행 파일이 여러개일 경우  
-그중 선택 가능한 화면이 나옴 선택하면 vscode용 실행명령어 .vscode\launch.json 파일이 생성됨
-
-생성된 이후 F5 키를 누르면 서버가 실행됨
-
-> pom.xml H2의존성 추가와 application.properties에 설정  
-의존 경로 : /pom.xml  
-설정 경로 : /src/main/resources/application.properties  
-
-## 폴더 구조
-
-|번호|폴더경로|설명|
-|---|---|---|
-|1|/logs|로그 파일 경로 일별 로테이션 압축보관|
-|2|/src/main/asciidoc|API 테스트 문서화 템플릿|
-|3|/src/main/java/.../admonitor/cache|캐시 파일|
-|4|/src/main/java/.../admonitor/config|프로퍼티 환경설정|
-|5|/src/main/java/.../admonitor/controller|Get Post등 API 구현|
-|6|/src/main/java/.../admonitor/entity|JPA 테이블과 매칭하는 객체|
-|7|/src/main/java/.../admonitor/entity/dto|QueryDSL 커스텀객체|
-|8|/src/main/java/.../admonitor/entity/id|JPA 테이블 복합키|
-|9|/src/main/java/.../admonitor/entity/object|JPA 테이블 하위 객체|
-|10|/src/main/java/.../admonitor/etc/exception|예외처리|
-|11|/src/main/java/.../admonitor/model|API 연동 모델객체|
-|12|/src/main/java/.../admonitor/model|API 연동 모델 하위 객체|
-|13|/src/main/java/.../admonitor/repository|JPA DB 연동|
-|14|/src/main/java/.../admonitor/service|구글 페북 연동 서비스 및 배치|
-|15|/src/main/java/.../admonitor/util|유틸 기능|
-|16|/src/main/resources|properties모음|
-|17|/src/test/java/.../adminitor|테스트 실행파일|
-|18|/src/test/resources/.../templete|API 테스트 요청 템플릿|
-|19|/target|빌드된 파일 모음|
-|20|/target/classes|클래스화된 파일모음|
-|21|/target/generated-docs|API 테스트 결과 문서|
-|22|/target/generated-snippets|API 테스트 결과|
-|23|/target/generated-sources|QueryDSL 플러그인 생성객체|
-
-
-## 기능 설명
-
-> 스프링부트는 레고 블럭과 같이 의존성을 추가하고 그기능들을 활용하는데  
-> properties로 설정을 하고 @어노테이션으로 기능을 이용한다.  
-> 참고 - 의존성을 추가하면 기본설정은 암묵적으로 정의 되어있다
-
-## properties
-
-|번호|파일경로|설명|
-|---|---|---|
-|1|/src/main/resources/application.properties|프로퍼티 설정 파일|
-|2|/src/main/.../admonitor/Application.java|프로퍼티 경로 주입|
-|3|/src/main/.../admonitor/common/GlobalValue.java|@Value 주입|
-|4|/src/main/.../admonitor/config/GoogleProperties.java|@ConfigurationProperties 주입|
-|5|/src/main/resources/log4j2.properties|프로퍼티 내부 경로 주입|
-
-### 1. 프로퍼티 설정 파일
-외부 설정정보를 밖으로 빼서 내부에서 활용하며 프로퍼티 파일은 다음과 같다.
-```
-# 사용자정의 설정
-global.facebook.view_log=false
-global.facebook.insight_field=impressions,spend,clicks...

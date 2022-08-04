@@ -3,6 +3,9 @@ package com.dartmedia.dmss.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import io.swagger.annotations.ApiModel;
+import lombok.Getter;
+import lombok.Setter;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -21,7 +24,8 @@ public class SpringFoxConfig {
                           
     @Bean
     public Docket swaggerApi() {
-      return new Docket(DocumentationType.SWAGGER_2).apiInfo(swaggerInfo()).select()
+      return new Docket(DocumentationType.SWAGGER_2)
+      .apiInfo(swaggerInfo()).select()
           .apis(RequestHandlerSelectors.basePackage("com.dartmedia.dmss.controller")) // API 컨트롤러 위치 설정
           .paths(PathSelectors.any()).build().useDefaultResponseMessages(false);
     }
@@ -30,7 +34,7 @@ public class SpringFoxConfig {
      * 추가 설정으로 문서화를 커스터마이징 할 수 있음
      */
     private ApiInfo swaggerInfo() {
-      return new ApiInfoBuilder().title("DMSS Web Service API Documentation").description("다트미디어 인트라넷 웹 서비스API 문서 - 개발용")
+      return new ApiInfoBuilder().title("DMSS Web Service API Documentation").description("Only For Dart")
           .license("DartDev").licenseUrl("https://dartmeda.co.kr/").version("1").build();
-    }
+    } 
 }

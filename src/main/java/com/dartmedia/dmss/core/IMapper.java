@@ -12,10 +12,10 @@ public interface IMapper<T> {
     public void create(T t) throws Exception;
 
     public List<T> findAll() throws Exception;
-    
+
     public T read(String id) throws Exception;
 
-    public void update (T t) throws Exception;
+    public void update(T t) throws Exception;
 
-    public void delete (String id) throws Exception;
+    public void delete(String id) throws Exception;
 }
