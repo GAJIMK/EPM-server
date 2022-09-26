@@ -82,6 +82,15 @@
 |11|http://localhost:8009/userFeeList/|POST|경비항목 수정
 |12|http://localhost:8009/auth/login|---|
 |13|http://localhost:8009/auth/login|---|
+|14|http://localhost:8009/board/findAll|GET|게시판 전체 글 불러오기|
+|15|http://localhost:8009/board/findBypage?page=${page}|GET|페이지별 게시판 글 불러오기 |
+|16|http://localhost:8009/board/findById?id=${id}|GET|게시글 클릭시 해당 게시글 불러오기|
+|17|http://localhost:8009/board/{id}|PUT|게시판 글 등록|
+|18|http://localhost:8009/thumbs/countById?id=${id}|GET|게시글 별 좋아요 개수 불러오기|
+|19|http://localhost:8009/thumbs/selectTop5|GET|좋아요 탑 5 조회하기|
+|20|http://localhost:8009/thumbs/{id}|PUT|좋아요 누르기|
+
+
 
 
 
