@@ -10,9 +10,11 @@
     </select>
 
     <select id="findAccountsByIdNo" resultType="Account">
-        SELECT	*
-        FROM 	Account
-        WHERE   AccountId like '%' + #{idNo} + '%'
+        select * from appoint as a 
+        inner join appoint as ap 
+        on a.AccountId=ap.AccountId
+        WHERE   a.AccountId like '%' + #{idNo} + '%'
+    
     </select>
 
     <select id="read" resultType="Account"> 
