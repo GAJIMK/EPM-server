@@ -29,10 +29,12 @@
  
     select a.AccountNm, s.accountid,c.CommonName, s.date, s.state
     from account as a 
+	  inner join appoint as ap
+		on a.AccountId=ap.AccountId
     inner join userfeestate as s
 	  on a.accountId = s.accountid
 	  inner join CommonCode as c
-    on c.ClassCode = 'Position' and c.CommonCode = a.tpPosition
+    on c.ClassCode = 'Position' and c.CommonCode = ap.tpPosition
     where date like  #{date} + '%'
     order by s.date desc
   </select>
