@@ -25,7 +25,7 @@ public class Account {
 
 	// 파라미터 검증, NULL이면 오류 발생
 	@NotNull(message = "id는 필수 값입니다.")
-    private String AccountId;
+	private String AccountId;
 	@PositiveOrZero
 	private String tpAccount;
 	private String AccountNm;
@@ -46,7 +46,6 @@ public class Account {
 
 	private String PostNo;
 	private String Addr1;
-	private String Addr2;
 
 	// 파라미터 검증, 현재보다 과거여야함
 	// 이밖에 다양한 검증이 있음
