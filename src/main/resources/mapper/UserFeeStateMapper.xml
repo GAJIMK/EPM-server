@@ -39,6 +39,20 @@
     order by s.date desc
   </select>
 
+  <select id="findAllByLvAndDate" resultType="UserFeeState">
+ 
+    select a.AccountNm, s.accountid,c.CommonName, s.date, s.state, s.acceptLv
+    from account as a 
+	  inner join appoint as ap
+		on a.AccountId=ap.AccountId
+    inner join userfeestate as s
+	  on a.accountId = s.accountid
+	  inner join CommonCode as c
+    on c.ClassCode = 'Position' and c.CommonCode = ap.tpPosition
+    where date like  #{date} + '%' and acceptLv = #{acceptLv} 
+    order by s.date desc
+  </select>
+
   <select id="findAllByUser" resultType="UserFeeState">
     select a.AccountNm, s.accountid, s.date, s.state
     from account as a 

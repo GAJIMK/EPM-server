@@ -58,6 +58,11 @@ public class UserFeeStateService implements UserFeeStateMapper {
   }
 
   @Override
+  public List<UserFeeState> findAllByLvAndDate(int acceptLv, String date) throws Exception {
+    return mapper.findAllByLvAndDate(acceptLv, date);
+  }
+
+  @Override
   public UserFeeState read(String id) throws Exception {
     // TODO Auto-generated method stub
     return null;

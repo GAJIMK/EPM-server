@@ -30,7 +30,7 @@ public class ApprovalStepService implements ApprovalStepMapper {
   }
 
   @Override
-  public ApprovalStep readByTeamNo(short teamNo) throws Exception {
+  public List<ApprovalStep> readByTeamNo(short teamNo) throws Exception {
     return mapper.readByTeamNo(teamNo);
   }
 

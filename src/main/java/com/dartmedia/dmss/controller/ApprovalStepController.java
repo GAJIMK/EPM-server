@@ -3,21 +3,17 @@ package com.dartmedia.dmss.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.MutableAttributeSet;
-import javax.validation.Valid;
-
-import com.dartmedia.dmss.common.CommonResult;
 import com.dartmedia.dmss.common.MultiResult;
-import com.dartmedia.dmss.common.SingleResult;
+
 import com.dartmedia.dmss.core.ResponseService;
 import com.dartmedia.dmss.core.ResponseService.CommonResponse;
-import com.dartmedia.dmss.dto.Account;
+
 import com.dartmedia.dmss.dto.ApprovalStep;
-import com.dartmedia.dmss.service.AccountService;
+
 import com.dartmedia.dmss.service.ApprovalStepService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,22 +37,14 @@ public class ApprovalStepController {
   @ApiOperation(value = "Approval 단계 조회")
   @GetMapping("/{teamNo}")
   public ResponseEntity<?> findStep(@PathVariable("teamNo") short teamNo) {
-    List<ApprovalStep> list = new ArrayList<ApprovalStep>();
     MultiResult<ApprovalStep> result = null;
 
     try {
       if (teamNo != 0) {
-        ApprovalStep data = service.readByTeamNo(teamNo);
+        List<ApprovalStep> data = service.readByTeamNo(teamNo);
         if (data != null) {
-          while (true) {
-            short no = teamNo;
-            ApprovalStep item = service.readByTeamNo(no);
-            if (item.getTeamNo() == 1)
-              break;
-            teamNo = item.getUpperTeamNo();
-            list.add(item);
-          }
-          result = responseService.getMultiResult(list);
+
+          result = responseService.getMultiResult(data);
         } else
           result = responseService.getMultiFailType(CommonResponse.NODATA);
       }

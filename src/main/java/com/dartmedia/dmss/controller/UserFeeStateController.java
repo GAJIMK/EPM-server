@@ -107,6 +107,24 @@ public class UserFeeStateController {
     return ResponseEntity.ok().body(result);
   }
 
+  @ApiOperation(value = "달별, 승인상태별 경비 승인상태 조회", notes = "yyyy-mm")
+  @GetMapping("/findAllByLvAndDate")
+  public ResponseEntity<?> findAllByLvAndDate(int acceptLv, String date) {
+    MultiResult<UserFeeState> result = null;
+
+    try {
+      List<UserFeeState> list = service.findAllByLvAndDate(acceptLv, date);
+      if (list.size() > 0)
+        result = resService.getMultiResult(list);
+      else
+        result = resService.getMultiFailType(CommonResponse.NODATA);
+    } catch (Exception e) {
+      log.error("예외:" + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+    return ResponseEntity.ok().body(result);
+  }
+
   @ApiOperation(value = "state를 반려 상태로 변경", notes = "state를 반려 상태로 변경")
   @PostMapping("/reject/{accountId}/date/{date}") // PATCH HTTP 메서드
   public ResponseEntity<?> updateReject(
