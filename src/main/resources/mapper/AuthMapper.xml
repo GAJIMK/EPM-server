@@ -17,4 +17,9 @@
   FROM feeadmin where adminId=#{accountId}
   </select>
 
+  <select id="findById" resultType ="Account">
+    select * from account
+     where accountId=#{accountId}
+  </select>
+
 </mapper>
