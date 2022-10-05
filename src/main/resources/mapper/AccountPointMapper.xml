@@ -6,4 +6,11 @@
     select Top 1 teamNo from Appoint where accountid=#{accountId}
   </select>
 
+  <select id="findTeamNm" resultType="AccountPoint">
+    SELECT accountId, teamNm FROM Appoint As a
+    LEFT OUTER JOIN Team As t
+    ON t.TeamNo = a.TeamNo
+    WHERE accountid=#{accountId}
+  </select>
+
 </mapper>

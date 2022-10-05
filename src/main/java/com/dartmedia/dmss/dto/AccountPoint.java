@@ -9,4 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class AccountPoint {
   private int teamNo;
+  private String accountId;
+  private String TeamNm;
 }
