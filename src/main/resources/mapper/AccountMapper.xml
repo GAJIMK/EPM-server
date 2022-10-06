@@ -62,19 +62,8 @@
     
     <update id="update"> 
         UPDATE Account 
-        SET tpAccount=#{tpAccount}
-            ,AccountNm=#{AccountNm}
-            ,tpPosition=#{tpPosition}
-            ,Password=#{Password}
-            ,PhoneNo=#{PhoneNo}
-            ,ExchangeNo=#{ExchangeNo}
-            ,MobileNo=#{MobileNo}
-            ,eMail=#{eMail}
-            ,tpPublish=#{tpPublish}
-            ,PostNo=#{PostNo}
-            ,Addr1=#{Addr1}
-            ,Addr2=#{Addr2}
-            ,BirthDay=#{BirthDay}
+        SET Password=#{Password}
+           
         WHERE AccountId=#{AccountId} 
     </update> 
     
