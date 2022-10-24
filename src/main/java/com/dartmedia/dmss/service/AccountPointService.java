@@ -43,4 +43,10 @@ public class AccountPointService implements AccountPointMapper {
 	public AccountPoint findTeamNo(String accountId) throws Exception {
 		return mapper.findTeamNo(accountId);
 	}
+
+	@Override
+	public AccountPoint findTeamNm(String accountId) throws Exception {
+		// TODO Auto-generated method stub
+		return mapper.findTeamNm(accountId);
+	}
 }

@@ -3,14 +3,26 @@
 <mapper namespace="com.dartmedia.dmss.mapper.AuthMapper">
 
   <select id="login" resultType="Auth">
-    select accountId, accountNm 
-    from account 
-    where accountId=#{accountId} and password=#{password} 
+
+  select a.accountId, a.accountNm, ap.managerYn, ap.teamNo 
+  from account as a 
+  inner join (
+	select top(1) * from appoint where accountId=#{accountId} order by PublishDay desc
+  ) as ap 
+  on a.AccountId=ap.AccountId
+  where a.accountId=#{accountId} and a.password=#{password} 
+
+ 
   </select>
 
   <select id="isExist" resultType="String">
     SELECT CASE WHEN (count(*) > 0) THEN 'true' ELSE 'false' END AS role
   FROM feeadmin where adminId=#{accountId}
+  </select>
+
+  <select id="findById" resultType ="Account">
+    select * from account
+     where accountId=#{accountId}
   </select>
 
 </mapper>

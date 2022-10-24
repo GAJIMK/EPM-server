@@ -130,7 +130,7 @@ public class AccountController {
         return ResponseEntity.ok().body(result);
     }
 
-    @ApiOperation(value = "Account 개별 수정", notes = "Account 개별 수정")
+    @ApiOperation(value = "패스워드 개별 수정", notes = "패스워드 개별 수정")
     @PostMapping("/") // POST HTTP 메서드
     public ResponseEntity<?> update(@Valid @RequestBody Account account) {
 

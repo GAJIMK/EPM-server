@@ -11,6 +11,8 @@ public class Auth {
   private String accountId;
   private String accountNm;
   private String password;
-  private String token;
+  private String managerYn;
+  private String teamNo;
   private String role;
+  private int acceptLv;
 }

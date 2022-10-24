@@ -8,7 +8,7 @@
     (
       #{accountId},
       #{date},
-      90,
+      10,
       (SELECT  ap.teamno 
       FROM Appoint AS ap 
       INNER JOIN Account AS ac
@@ -29,11 +29,40 @@
  
     select a.AccountNm, s.accountid,c.CommonName, s.date, s.state
     from account as a 
+	  inner join appoint as ap
+		on a.AccountId=ap.AccountId
     inner join userfeestate as s
 	  on a.accountId = s.accountid
 	  inner join CommonCode as c
-    on c.ClassCode = 'Position' and c.CommonCode = a.tpPosition
-    where date like  #{date} + '%'
+    on c.ClassCode = 'Position' and c.CommonCode = ap.tpPosition
+    where date like  #{date} + '%' and s.state >=100
+    order by s.date desc
+  </select>
+
+  <select id="findAllByDateAndManager" resultType="UserFeeState">
+ 
+    select a.AccountNm, s.accountid,c.CommonName, s.date, s.state
+    from account as a 
+	  inner join appoint as ap
+		on a.AccountId=ap.AccountId
+    inner join userfeestate as s
+	  on a.accountId = s.accountid
+	  inner join CommonCode as c
+    on c.ClassCode = 'Position' and c.CommonCode = ap.tpPosition
+    where date like  #{date} + '%' and s.state between 1 and 99
+    order by s.date desc
+  </select>
+
+  <select id="findAllByLvAndDate" resultType="UserFeeState"> 
+    select a.AccountNm, s.accountid,c.CommonName, s.date, s.state, s.acceptLv
+    from account as a 
+	  inner join appoint as ap
+		on a.AccountId=ap.AccountId
+    inner join userfeestate as s
+	  on a.accountId = s.accountid
+	  inner join CommonCode as c
+    on c.ClassCode = 'Position' and c.CommonCode = ap.tpPosition
+    where date like  #{date} + '%' and acceptLv = #{acceptLv}  and s.state between 1 and 99
     order by s.date desc
   </select>
 
@@ -46,21 +75,12 @@
     order by s.date desc
   </select>  
 
-   <update id="approveState">
+   <update id="changeState">
   UPDATE userFeeState
-  SET state=10
+  SET state=#{state}
   WHERE accountId=#{accountId} and date=#{date}
   </update>
-   <update id="rejectState">
-  UPDATE userFeeState
-  SET state=40
-  WHERE accountId=#{accountId} and date=#{date}
-  </update>
-   <update id="ingState">
-  UPDATE userFeeState
-  SET state=50
-  WHERE accountId=#{accountId} and date=#{date}
-  </update>
+
 
 
 </mapper>

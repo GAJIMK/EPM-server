@@ -34,7 +34,7 @@ public class SpringFoxConfig {
      * 추가 설정으로 문서화를 커스터마이징 할 수 있음
      */
     private ApiInfo swaggerInfo() {
-      return new ApiInfoBuilder().title("DMSS Web Service API Documentation").description("Only For Dart")
+      return new ApiInfoBuilder().title("Easy Pay Management Service API Documentation").description("Only For Gaji")
           .license("DartDev").licenseUrl("https://dartmeda.co.kr/").version("1").build();
     } 
 }
