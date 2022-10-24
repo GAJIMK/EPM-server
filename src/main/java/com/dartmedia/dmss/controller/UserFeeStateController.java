@@ -36,7 +36,7 @@ public class UserFeeStateController {
   private final ResponseService resService;
   private final UserFeeStateService service;
 
-  @ApiOperation(value = "Account 개별 등록", notes = "Account 개별 등록")
+  @ApiOperation(value = "UserFeeState 등록", notes = "UserFeeState 개별 등록")
   @PutMapping("/") // PUT HTTP 메서드
   public ResponseEntity<?> create(@Valid @RequestBody UserFeeState userFeeState) {
 
@@ -89,13 +89,31 @@ public class UserFeeStateController {
     return ResponseEntity.ok().body(result);
   }
 
-  @ApiOperation(value = "달별 경비 승인상태 조회", notes = "yyyy-mm")
+  @ApiOperation(value = "관리자 달별 경비 승인상태 조회", notes = "yyyy-mm")
   @GetMapping("/findAllByDate")
   public ResponseEntity<?> findAllByDate(String date) {
     MultiResult<UserFeeState> result = null;
 
     try {
       List<UserFeeState> list = service.findAllByDate(date);
+      if (list.size() > 0)
+        result = resService.getMultiResult(list);
+      else
+        result = resService.getMultiFailType(CommonResponse.NODATA);
+    } catch (Exception e) {
+      log.error("예외:" + e.getMessage());
+      result = resService.getMultiFailType(ResponseService.CommonResponse.ERR);
+    }
+    return ResponseEntity.ok().body(result);
+  }
+
+  @ApiOperation(value = "조직장 달별 경비 승인상태 조회", notes = "yyyy-mm")
+  @GetMapping("/manager/findAllByDate")
+  public ResponseEntity<?> findAllByManager(String date) {
+    MultiResult<UserFeeState> result = null;
+
+    try {
+      List<UserFeeState> list = service.findAllByDateAndManager(date);
       if (list.size() > 0)
         result = resService.getMultiResult(list);
       else
@@ -125,18 +143,18 @@ public class UserFeeStateController {
     return ResponseEntity.ok().body(result);
   }
 
-  @ApiOperation(value = "state를 반려 상태로 변경", notes = "state를 반려 상태로 변경")
-  @PostMapping("/reject/{accountId}/date/{date}") // PATCH HTTP 메서드
+  @ApiOperation(value = "userFeeState 상태 변경", notes = "userFeeState 상태 변경")
+  @PostMapping("/{accountId}/date/{date}/state/{state}") // PATCH HTTP 메서드
   public ResponseEntity<?> updateReject(
       @ApiParam(value = "사용자 id와 date", required = true) @PathVariable("accountId") String accountId,
-      @PathVariable("date") Date date) {
+      @PathVariable("date") Date date, @PathVariable("state") int state) {
 
     CommonResult result = null;
 
     try {
       UserFeeState list = service.readByDate(accountId, date);
       if (list != null) {
-        service.rejectState(accountId, date);
+        service.changeState(accountId, date, state);
         result = resService.getSingleResult(CommonResponse.SUCCESS);
       } else {
         result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
@@ -150,53 +168,4 @@ public class UserFeeStateController {
     return ResponseEntity.ok().body(result);
   }
 
-  @ApiOperation(value = "state를 승인 상태로 변경", notes = "state를 승인 상태로 변경")
-  @PostMapping("/approve/{accountId}/date/{date}") // PATCH HTTP 메서드
-  public ResponseEntity<?> updateApprove(
-      @ApiParam(value = "사용자 id와 date", required = true) @PathVariable("accountId") String accountId,
-      @PathVariable("date") Date date) {
-
-    CommonResult result = null;
-
-    try {
-      UserFeeState list = service.readByDate(accountId, date);
-      if (list != null) {
-        service.approveState(accountId, date);
-        result = resService.getSingleResult(CommonResponse.SUCCESS);
-      } else {
-        result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
-      }
-
-    } catch (Exception e) {
-      log.error("처리중 예외 : " + e.getMessage());
-      result = resService.getSingleFailType(CommonResponse.ERR);
-    }
-
-    return ResponseEntity.ok().body(result);
-  }
-
-  @ApiOperation(value = "state를 진행중 상태로 변경", notes = "state를 진행중 상태로 변경")
-  @PostMapping("/ing/{accountId}/date/{date}") // PATCH HTTP 메서드
-  public ResponseEntity<?> readApprove(
-      @ApiParam(value = "사용자 id와 date", required = true) @PathVariable("accountId") String accountId,
-      @PathVariable("date") Date date) {
-
-    CommonResult result = null;
-
-    try {
-      UserFeeState list = service.readByDate(accountId, date);
-      if (list != null) {
-        service.ingState(accountId, date);
-        result = resService.getSingleResult(CommonResponse.SUCCESS);
-      } else {
-        result = resService.getSingleFailType(CommonResponse.EMPTY_ID);
-      }
-
-    } catch (Exception e) {
-      log.error("처리중 예외 : " + e.getMessage());
-      result = resService.getSingleFailType(CommonResponse.ERR);
-    }
-
-    return ResponseEntity.ok().body(result);
-  }
 }

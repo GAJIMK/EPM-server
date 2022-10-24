@@ -3,13 +3,16 @@
 <mapper namespace="com.dartmedia.dmss.mapper.AuthMapper">
 
   <select id="login" resultType="Auth">
-  
+
   select a.accountId, a.accountNm, ap.managerYn, ap.teamNo 
   from account as a 
-  inner join appoint as ap 
+  inner join (
+	select top(1) * from appoint where accountId=#{accountId} order by PublishDay desc
+  ) as ap 
   on a.AccountId=ap.AccountId
   where a.accountId=#{accountId} and a.password=#{password} 
 
+ 
   </select>
 
   <select id="isExist" resultType="String">

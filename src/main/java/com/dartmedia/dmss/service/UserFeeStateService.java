@@ -69,21 +69,14 @@ public class UserFeeStateService implements UserFeeStateMapper {
   }
 
   @Override
-  public void approveState(String accountId, Date date) throws Exception {
-    mapper.approveState(accountId, date);
+  public void changeState(String accountId, Date date, int state) throws Exception {
+    mapper.changeState(accountId, date, state);
 
   }
 
   @Override
-  public void rejectState(String accountId, Date date) throws Exception {
-    mapper.rejectState(accountId, date);
-
-  }
-
-  @Override
-  public void ingState(String accountId, Date date) throws Exception {
-    mapper.ingState(accountId, date);
-
+  public List<UserFeeState> findAllByDateAndManager(String date) throws Exception {
+    return mapper.findAllByDateAndManager(date);
   }
 
 }
